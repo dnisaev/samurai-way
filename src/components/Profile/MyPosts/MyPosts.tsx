@@ -10,8 +10,8 @@ const MyPosts = () => {
                 New post
             </div>
             <div className={s.posts}>
-                <Post/>
-                <Post/>
+                <Post message={"Hi, there!"}/>
+                <Post message={"Hello, everyone!"}/>
             </div>
         </div>
     );
