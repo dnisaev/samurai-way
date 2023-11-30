@@ -1,9 +1,9 @@
 .nav {
     grid-area: n;
-    background-color: white;
+    background-color: lightslategrey;
     color: black;
 }
 
 .item {
-    color: darkslategrey;
+    color: black;
 }

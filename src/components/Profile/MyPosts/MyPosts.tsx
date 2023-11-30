@@ -7,7 +7,8 @@ const MyPosts = () => {
         <div>
             My posts
             <div>
-                New post
+                <textarea/>
+                <button>add post</button>
             </div>
             <div className={s.posts}>
                 <Post message={"Hi, there!"}/>
