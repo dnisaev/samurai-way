@@ -1,8 +1,14 @@
 import React from 'react';
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import {v1} from "uuid";
+
 
 const MyPosts = () => {
+    const postMessagesData = [
+        {id: v1(), message: 'Hi, there!'},
+        {id: v1(), message: 'Hello, everyone!'}
+    ];
     return (
         <div className={style.postsBlock}>
             <h3>My posts</h3>
@@ -15,8 +21,8 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={style.posts}>
-                <Post postMessage={"Hi, there!"}/>
-                <Post postMessage={"Hello, everyone!"}/>
+                <Post message={postMessagesData[0].message}/>
+                <Post message={postMessagesData[1].message}/>
             </div>
         </div>
     );
