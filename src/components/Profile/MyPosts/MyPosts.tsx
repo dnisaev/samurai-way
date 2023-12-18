@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "./MyPosts.module.css";
+import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {v1} from "uuid";
 
@@ -15,7 +15,7 @@ const MyPosts = () => {
     });
 
     return (
-        <div className={style.postsBlock}>
+        <div className={styles.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
@@ -25,7 +25,7 @@ const MyPosts = () => {
                     <button>add post</button>
                 </div>
             </div>
-            <div className={style.posts}>
+            <div className={styles.posts}>
                 {postMessagesElements}
             </div>
         </div>
