@@ -3,22 +3,22 @@ import style from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 import {v1} from "uuid";
 
-type DialogDataType = {
+type DialogDataPropsType = {
     id: string
     name: string
 }
-type DialogMessageType = {
+type DialogMessagePropsType = {
     id?: string
     message: string
 }
-const Dialog = ({name, id}: DialogDataType) => {
+const Dialog = ({name, id}: DialogDataPropsType) => {
     return (
         <div className={style.dialog}>
             <NavLink to={`/dialogs/${id}`} activeClassName={style.active}>{name}</NavLink>
         </div>
     )
 }
-const Message = ({message}: DialogMessageType) => {
+const Message = ({message}: DialogMessagePropsType) => {
     return <div className={style.message}>{message}</div>
 }
 
@@ -44,7 +44,7 @@ const Dialogs = () => {
     });
 
     let messagesElements = DialogsMessages.map((m)=>{
-        return  <Message key={m.id} message={m.message}/>
+        return <Message key={m.id} message={m.message}/>
     });
 
     return (
