@@ -6,9 +6,14 @@ import {v1} from "uuid";
 
 const MyPosts = () => {
     const postMessagesData = [
-        {id: v1(), message: 'Hi, there!'},
-        {id: v1(), message: 'Hello, everyone!'}
+        {id: v1(), message: 'Hi, there!', likesCount: 15},
+        {id: v1(), message: 'Hello, everyone!', likesCount: 35}
     ];
+
+    let postMessagesElements = postMessagesData.map((m)=>{
+        return <Post key={m.id} message={m.message} likesCount={m.likesCount}/>
+    });
+
     return (
         <div className={style.postsBlock}>
             <h3>My posts</h3>
@@ -21,8 +26,7 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={style.posts}>
-                <Post message={postMessagesData[0].message}/>
-                <Post message={postMessagesData[1].message}/>
+                {postMessagesElements}
             </div>
         </div>
     );

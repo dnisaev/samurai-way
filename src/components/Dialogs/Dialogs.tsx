@@ -26,6 +26,7 @@ const Dialogs = () => {
     const DialogsMessages = [
         {id: v1(), message: 'Hello'},
         {id: v1(), message: 'Hi'},
+        {id: v1(), message: 'Whats up?'},
         {id: v1(), message: 'How are you?'}
     ];
     const DialogsData = [
@@ -34,19 +35,25 @@ const Dialogs = () => {
         {id: v1(), name: 'Sveta'},
         {id: v1(), name: 'Mama'},
         {id: v1(), name: 'Papa'},
+        {id: v1(), name: 'Vladimir'},
         {id: v1(), name: 'Andrey'}
-    ]
+    ];
+
+    let dialogsElements = DialogsData.map((d) => {
+        return <Dialog key={d.id} name={d.name} id={d.id}/>
+    });
+
+    let messagesElements = DialogsMessages.map((m)=>{
+        return  <Message key={m.id} message={m.message}/>
+    });
 
     return (
         <div className={style.dialogsWrapper}>
             <div className={style.dialogsItems}>
-                <Dialog name={DialogsData[0].name} id={DialogsData[0].id}/>
-                <Dialog name={DialogsData[1].name} id={DialogsData[1].id}/>
+                {dialogsElements}
             </div>
             <div className={style.messagesItems}>
-                <Message message={DialogsMessages[0].message}/>
-                <Message message={DialogsMessages[1].message}/>
-                <Message message={DialogsMessages[2].message}/>
+                {messagesElements}
             </div>
         </div>
     );
