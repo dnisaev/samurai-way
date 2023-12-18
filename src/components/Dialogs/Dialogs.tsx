@@ -2,9 +2,9 @@ import React from 'react';
 import styles from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {PropsType} from "../../index";
+import {DialogsPropsType} from "../../index";
 
-const Dialogs = ({dialogsData, dialogsMessagesData}: PropsType) => {
+const Dialogs = ({dialogsData, dialogsMessagesData}: DialogsPropsType) => {
 
     let dialogsElements = dialogsData.map((d) => {
         return <Dialog key={d.id} name={d.name} id={d.id}/>

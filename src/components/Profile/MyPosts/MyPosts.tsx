@@ -1,16 +1,11 @@
 import React from 'react';
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {v1} from "uuid";
+import {PostsPropsType} from "../../../index";
 
+const MyPosts = ({postsData}: PostsPropsType) => {
 
-const MyPosts = () => {
-    const postMessagesData = [
-        {id: v1(), message: 'Hi, there!', likesCount: 15},
-        {id: v1(), message: 'Hello, everyone!', likesCount: 35}
-    ];
-
-    let postMessagesElements = postMessagesData.map((m)=>{
+    let postMessagesElements = postsData.map((m)=>{
         return <Post key={m.id} message={m.message} likesCount={m.likesCount}/>
     });
 
