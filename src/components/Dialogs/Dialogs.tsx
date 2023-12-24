@@ -14,9 +14,15 @@ const Dialogs = ({state}: DialogsPropsType) => {
         return <Dialog key={d.id} name={d.name} id={d.id}/>
     });
 
-    let messagesElements = state.messages.map((m)=>{
+    let messagesElements = state.messages.map((m) => {
         return <Message key={m.id} message={m.message} id={m.id}/>
     });
+
+    const newMessageElement = React.createRef<HTMLTextAreaElement>();
+    const sendMessage = () => {
+        let text = newMessageElement.current?.value;
+        console.log(text);
+    }
 
     return (
         <div className={styles.dialogsWrapper}>
@@ -25,6 +31,12 @@ const Dialogs = ({state}: DialogsPropsType) => {
             </div>
             <div className={styles.messagesItems}>
                 {messagesElements}
+                <div>
+                    <textarea ref={newMessageElement}/>
+                    <div>
+                        <button onClick={sendMessage}>send message</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

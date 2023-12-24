@@ -1,17 +1,24 @@
 import React from 'react';
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
+import {PostType} from "../../../redux/state";
 
-const MyPosts = ({posts}: ProfilePageType) => {
+type MyPostsPropsType = {
+    posts: Array<PostType>
+    addPost: (postMessage: string) => void
+}
 
-    let postMessagesElements = posts.map((m)=>{
+const MyPosts = ({posts, addPost}: MyPostsPropsType) => {
+
+    const postMessagesElements = posts.map((m) => {
         return <Post key={m.id} message={m.message} likesCount={m.likesCount} id={m.id}/>
     });
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
-    const addPost = () => {
+    const newPostElement = React.createRef<HTMLTextAreaElement>();
+    const onAddPostClick = () => {
         let text = newPostElement.current?.value;
-        console.log(text);
+        if (text) {
+            addPost(text);
+        }
     }
 
     return (
@@ -22,7 +29,7 @@ const MyPosts = ({posts}: ProfilePageType) => {
                     <textarea ref={newPostElement}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>add post</button>
+                    <button onClick={onAddPostClick}>add post</button>
                 </div>
             </div>
             <div className={styles.posts}>

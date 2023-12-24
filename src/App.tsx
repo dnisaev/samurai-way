@@ -9,16 +9,17 @@ import {StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
+    addPost: (postMessage: string) => void
 }
 
-function App({state}: AppPropsType) {
+function App({state, addPost}: AppPropsType) {
     return (
         <div className={'app-wrapper'}>
             <Header/>
             <NavBar/>
             <div className={'app-wrapper-content'}>
                 <Route path={"/profile"} render={() => <Profile
-                    state={state.profilePage}/>}/>
+                    state={state.profilePage} addPost={addPost}/>}/>
                 <Route path={"/dialogs"} render={() => <Dialogs
                     state={state.dialogPage}/>}/>
             </div>
