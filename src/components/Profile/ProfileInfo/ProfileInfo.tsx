@@ -4,10 +4,10 @@ import styles from "./ProfileInfo.module.css";
 const ProfileInfo = () => {
     return (
         <div className={styles.content}>
-            <div>
-                <img
+            <div className={styles.mainImgWrapper}>
+                <img className={styles.mainImg}
                     src={'https://papik.pro/uploads/posts/2023-02/1675660612_papik-pro-p-sotsialnii-risunok-11.jpg'}
-                    alt={'main-social'} width={'100%'}/>
+                    alt={'main-social'} />
             </div>
             <div className={styles.descriptionBlock}>
                 Avatar + Description
