@@ -1,5 +1,9 @@
 import {v1} from "uuid";
 
+let rerenderEntireTree = () => {
+    console.log('render!!!')
+}
+
 export type DialogsPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogType>
@@ -7,6 +11,7 @@ export type DialogsPageType = {
 
 export type ProfilePageType = {
     posts: Array<PostType>
+    newPostText: string
 }
 
 export type MessageType = {
@@ -30,19 +35,14 @@ export type StateType = {
     profilePage: ProfilePageType
 }
 
-export const addPost = (postMessage: string) => {
-    let newPost = {id: v1(), message: postMessage, likesCount: 0};
-    state.profilePage.posts.push(newPost); // ТАК ДЕЛАТЬ НЕЛЬЗЯ!!!
-    console.log(state);
-}
-
-export const state = {
+export const state: StateType = {
     profilePage: {
         posts: [
             {id: v1(), message: 'Hi, there!', likesCount: 15},
             {id: v1(), message: 'Hello, World!', likesCount: 9},
             {id: v1(), message: 'Hey, everyone!', likesCount: 35}
-        ]
+        ],
+        newPostText: ''
     },
     dialogPage: {
         dialogs: [
@@ -61,4 +61,20 @@ export const state = {
             {id: v1(), message: 'How are you?'}
         ]
     }
+}
+
+export const addPost = () => {
+    let newPost = {id: v1(), message: state.profilePage.newPostText, likesCount: 0};
+    state.profilePage.posts.push(newPost); // ТАК ДЕЛАТЬ НЕЛЬЗЯ!!!
+    state.profilePage.newPostText = '';
+    rerenderEntireTree();
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree();
+}
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer
 }
