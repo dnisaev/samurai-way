@@ -33,7 +33,7 @@ export type StateType = {
 
 export type StoreType = {
     _state: StateType
-    getState: () => void
+    getState: () => StateType
     _callSubscriber: () => void
     addPost: () => void
     updateNewPostText: (newText: string) => void
@@ -75,7 +75,7 @@ export let store: StoreType = {
         console.log('render!!!')
     },
     addPost(){
-        let newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
+        let newPost: PostType = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
         this._state.profilePage.posts.push(newPost); // ТАК ДЕЛАТЬ НЕЛЬЗЯ!!!
         this._state.profilePage.newPostText = '';
         this._callSubscriber();
