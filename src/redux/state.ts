@@ -4,33 +4,27 @@ export type DialogsPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogType>
 }
-
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
-
 export type MessageType = {
     id: string
     message: string
 }
-
 export type DialogType = {
     id: string
     name: string
 }
-
 export type PostType = {
     id: string
     message: string
     likesCount: number
 }
-
 export type StateType = {
     dialogPage: DialogsPageType
     profilePage: ProfilePageType
 }
-
 export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
@@ -44,14 +38,27 @@ export type StoreType = {
 }
 
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
-
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
-
 export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
+}
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
+export const addPostAC = (): AddPostActionType => {
+    return {
+        type: ADD_POST
+    }
+}
+export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: newText
+    }
 }
 
 export let store: StoreType = {
