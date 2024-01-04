@@ -3,15 +3,6 @@ import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
-export type DialogsPageType = {
-    messages: Array<MessageType>
-    dialogs: Array<DialogType>
-    newMessageText: string
-}
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
-}
 export type MessageType = {
     id: string
     message: string
@@ -20,16 +11,28 @@ export type DialogType = {
     id: string
     name: string
 }
+export type DialogsPageType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogType>
+    newMessageText: string
+}
+
 export type PostType = {
     id: string
     message: string
     likesCount: number
 }
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+
 export type StateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
     sidebar: {}
 }
+
 export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
@@ -39,6 +42,7 @@ export type StoreType = {
 
     dispatch: (action: ActionsType) => void
 }
+
 export type ActionsType =
     AddPostActionType |
     UpdateNewPostTextActionType |
@@ -48,38 +52,16 @@ export type ActionsType =
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
-export const addPostAC = (): AddPostActionType => {
-    return {
-        type: "ADD-POST"
-    }
-}
 export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
-export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
-    }
-}
 export type AddMessageActionType = {
     type: 'ADD-MESSAGE'
-}
-export const addMessageAC = (): AddMessageActionType => {
-    return {
-        type: "ADD-MESSAGE"
-    }
 }
 export type UpdateNewMessageTextActionType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newMessageText: string
-}
-export const updateNewMessageTextAC = (newMessageText: string): UpdateNewMessageTextActionType => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-TEXT",
-        newMessageText: newMessageText
-    }
 }
 
 export let store: StoreType = {

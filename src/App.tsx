@@ -13,6 +13,7 @@ type AppPropsType = {
 }
 
 function App({state, dispatch}: AppPropsType) {
+    console.log('render: App')
     return (
         <div className={'app-wrapper'}>
             <Header/>

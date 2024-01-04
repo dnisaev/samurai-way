@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./Header.module.css";
 
 const Header = () => {
+    console.log('render: Header')
     return (
         <header className={styles.header}>
             <a href={'/samurai-way'}>

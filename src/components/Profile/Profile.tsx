@@ -10,6 +10,7 @@ type ProfilePropsType = {
 }
 
 const Profile = ({profilePage, dispatch}: ProfilePropsType) => {
+    console.log('render: Profile')
     return (
         <div className={styles.content}>
             <ProfileInfo/>

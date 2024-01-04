@@ -5,9 +5,8 @@ import Message from "./Message/Message";
 import {
     ActionsType,
     DialogsPageType,
-    addMessageAC,
-    updateNewMessageTextAC
 } from "../../redux/store";
+import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
     state: DialogsPageType
@@ -36,6 +35,7 @@ const Dialogs = ({state, newMessageText, dispatch}: DialogsPropsType) => {
         }
     }
 
+    console.log('render: Dialogs')
     return (
         <div className={styles.dialogsWrapper}>
             <div className={styles.dialogsItems}>

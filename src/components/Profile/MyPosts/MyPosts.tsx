@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {ActionsType, addPostAC, PostType, updateNewPostTextAC} from "../../../redux/store";
+import {ActionsType, PostType} from "../../../redux/store";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 type MyPostsPropsType = {
     posts: Array<PostType>
@@ -24,7 +25,7 @@ const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
             dispatch(updateNewPostTextAC(text));
         }
     }
-
+    console.log('render: MyPosts')
     return (
         <div className={styles.postsBlock}>
             <h3>Мои посты</h3>

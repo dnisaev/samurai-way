@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./ProfileInfo.module.css";
 
 const ProfileInfo = () => {
+    console.log('render: ProfileInfo')
     return (
         <div className={styles.content}>
             <div className={styles.wrapper}>

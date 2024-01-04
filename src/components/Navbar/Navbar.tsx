@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 
 
 const NavBar = () => {
+    console.log('render: NavBar')
     return (
         <nav className={styles.nav}>
             <div className={styles.item}>
