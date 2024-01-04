@@ -20,8 +20,8 @@ function App({state, dispatch}: AppPropsType) {
             <div className={'app-wrapper-content'}>
                 <Route path={"/profile"} render={() => <Profile profilePage={state.profilePage}
                                                                 dispatch={dispatch}/>}/>
-                <Route path={"/dialogs"} render={() => <Dialogs state={state.dialogPage}
-                                                                newMessageText={state.dialogPage.newMessageText}
+                <Route path={"/dialogs"} render={() => <Dialogs state={state.dialogsPage}
+                                                                newMessageText={state.dialogsPage.newMessageText}
                                                                 dispatch={dispatch}/>}/>
             </div>
         </div>

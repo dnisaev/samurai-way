@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 export type DialogsPageType = {
     messages: Array<MessageType>
@@ -23,8 +26,9 @@ export type PostType = {
     likesCount: number
 }
 export type StateType = {
-    dialogPage: DialogsPageType
+    dialogsPage: DialogsPageType
     profilePage: ProfilePageType
+    sidebar: {}
 }
 export type StoreType = {
     _state: StateType
@@ -35,7 +39,6 @@ export type StoreType = {
 
     dispatch: (action: ActionsType) => void
 }
-
 export type ActionsType =
     AddPostActionType |
     UpdateNewPostTextActionType |
@@ -45,14 +48,14 @@ export type ActionsType =
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
 export const addPostAC = (): AddPostActionType => {
     return {
         type: "ADD-POST"
     }
+}
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
 }
 export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => {
     return {
@@ -60,18 +63,17 @@ export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionTyp
         newText: newText
     }
 }
-
 export type AddMessageActionType = {
     type: 'ADD-MESSAGE'
-}
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newMessageText: string
 }
 export const addMessageAC = (): AddMessageActionType => {
     return {
         type: "ADD-MESSAGE"
     }
+}
+export type UpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newMessageText: string
 }
 export const updateNewMessageTextAC = (newMessageText: string): UpdateNewMessageTextActionType => {
     return {
@@ -89,7 +91,7 @@ export let store: StoreType = {
             ],
             newPostText: ''
         },
-        dialogPage: {
+        dialogsPage: {
             dialogs: [
                 {id: v1(), name: 'Dmitriy'},
                 {id: v1(), name: 'Anya'},
@@ -104,10 +106,11 @@ export let store: StoreType = {
                 {id: v1(), message: 'Как дела?'}
             ],
             newMessageText: ''
-        }
+        },
+        sidebar: {}
     },
     _callSubscriber(){
-        console.log('Если вы видите это сообщение в консоли, пожалуйста, сообщите нам!')
+        console.log('Если вы видите это сообщение, пожалуйста, сообщите нам!')
     },
 
     getState(){
@@ -117,24 +120,9 @@ export let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action: ActionsType) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber();
-        } else if (action.type === 'ADD-MESSAGE') {
-            let newMessage = {id: v1(), message: this._state.dialogPage.newMessageText};
-            this._state.dialogPage.messages.push(newMessage);
-            this._state.dialogPage.newMessageText = '';
-            this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.dialogPage.newMessageText = action.newMessageText;
-            this._callSubscriber();
-        } else {
-            console.log('ERROR: UNEXPECTED ACTION TYPE!!!')
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._callSubscriber();
     }
 }
