@@ -35,7 +35,7 @@ export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
 
-    getState: () => void
+    getState: () => StateType
     subscribe: (observer: () => void) => void
 
     addPost: () => void
