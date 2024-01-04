@@ -33,11 +33,25 @@ export type StateType = {
 
 export type StoreType = {
     _state: StateType
-    getState: () => void
     _callSubscriber: () => void
+
+    getState: () => void
+    subscribe: (observer: () => void) => void
+
     addPost: () => void
     updateNewPostText: (newText: string) => void
-    subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsType) => void
+}
+
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
 }
 
 export let store: StoreType = {
@@ -68,23 +82,37 @@ export let store: StoreType = {
             ]
         }
     },
-    getState(){
-        return this._state
-    },
     _callSubscriber(){
         console.log('render!!!')
     },
+
+    getState(){
+        return this._state
+    },
+    subscribe(observer){
+        this._callSubscriber = observer
+    },
+
     addPost(){
         let newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
         this._state.profilePage.posts.push(newPost); // ТАК ДЕЛАТЬ НЕЛЬЗЯ!!!
         this._state.profilePage.newPostText = '';
         this._callSubscriber();
     },
-    updateNewPostText(newText: string){
+    updateNewPostText(newText){
         this._state.profilePage.newPostText = newText;
         this._callSubscriber();
     },
-    subscribe(observer: () => void){
-        this._callSubscriber = observer
+
+    dispatch(action: ActionsType) {
+        if (action.type === 'ADD-POST') {
+            let newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        }
     }
 }
