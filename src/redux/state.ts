@@ -3,6 +3,7 @@ import {v1} from "uuid";
 export type DialogsPageType = {
     messages: Array<MessageType>
     dialogs: Array<DialogType>
+    newMessageText: string
 }
 export type ProfilePageType = {
     posts: Array<PostType>
@@ -32,12 +33,15 @@ export type StoreType = {
     getState: () => StateType
     subscribe: (observer: () => void) => void
 
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
     dispatch: (action: ActionsType) => void
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
+export type ActionsType =
+    AddPostActionType |
+    UpdateNewPostTextActionType |
+    AddMessageActionType |
+    UpdateNewMessageTextActionType
+
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
@@ -45,19 +49,34 @@ export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
-
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-
 export const addPostAC = (): AddPostActionType => {
     return {
-        type: ADD_POST
+        type: "ADD-POST"
     }
 }
 export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => {
     return {
-        type: UPDATE_NEW_POST_TEXT,
+        type: "UPDATE-NEW-POST-TEXT",
         newText: newText
+    }
+}
+
+export type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+}
+export type UpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newMessageText: string
+}
+export const addMessageAC = (): AddMessageActionType => {
+    return {
+        type: "ADD-MESSAGE"
+    }
+}
+export const updateNewMessageTextAC = (newMessageText: string): UpdateNewMessageTextActionType => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-TEXT",
+        newMessageText: newMessageText
     }
 }
 
@@ -65,9 +84,8 @@ export let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
-                {id: v1(), message: 'Hi, there!', likesCount: 15},
-                {id: v1(), message: 'Hello, World!', likesCount: 9},
-                {id: v1(), message: 'Hey, everyone!', likesCount: 35}
+                {id: v1(), message: 'Всем привет!', likesCount: 11},
+                {id: v1(), message: 'Добро пожаловать в мою социальную сеть «Welcome»', likesCount: 15}
             ],
             newPostText: ''
         },
@@ -82,15 +100,14 @@ export let store: StoreType = {
                 {id: v1(), name: 'Andrey'}
             ],
             messages: [
-                {id: v1(), message: 'Hello'},
-                {id: v1(), message: 'Hi'},
-                {id: v1(), message: 'Whats up?'},
-                {id: v1(), message: 'How are you?'}
-            ]
+                {id: v1(), message: 'Привет'},
+                {id: v1(), message: 'Как дела?'}
+            ],
+            newMessageText: ''
         }
     },
     _callSubscriber(){
-        console.log('render!!!')
+        console.log('Если вы видите это сообщение в консоли, пожалуйста, сообщите нам!')
     },
 
     getState(){
@@ -99,18 +116,6 @@ export let store: StoreType = {
     subscribe(observer){
         this._callSubscriber = observer
     },
-
-    addPost(){
-        let newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
-        this._state.profilePage.posts.push(newPost); // ТАК ДЕЛАТЬ НЕЛЬЗЯ!!!
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber();
-    },
-    updateNewPostText(newText){
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber();
-    },
-
     dispatch(action: ActionsType) {
         if (action.type === 'ADD-POST') {
             let newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0};
@@ -120,6 +125,16 @@ export let store: StoreType = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber();
+        } else if (action.type === 'ADD-MESSAGE') {
+            let newMessage = {id: v1(), message: this._state.dialogPage.newMessageText};
+            this._state.dialogPage.messages.push(newMessage);
+            this._state.dialogPage.newMessageText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialogPage.newMessageText = action.newMessageText;
+            this._callSubscriber();
+        } else {
+            console.log('ERROR: UNEXPECTED ACTION TYPE!!!')
         }
     }
 }
