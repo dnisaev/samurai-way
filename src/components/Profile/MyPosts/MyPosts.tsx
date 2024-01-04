@@ -27,7 +27,7 @@ const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
 
     return (
         <div className={styles.postsBlock}>
-            <h3>My posts</h3>
+            <h3>Мои посты</h3>
             <div>
                 <div>
                     <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}/>

@@ -5,9 +5,11 @@ import {PostType} from "../../../../redux/state";
 const Post = ({id, message, likesCount}: PostType) => {
     return (
         <div className={styles.post} id={id}>
-            <img src={"https://i.pinimg.com/236x/8b/48/e8/8b48e86f54825b8c0e02b132814638af.jpg"}
+            <img src={"https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg"}
                  alt={"user"}/>
-            {message}
+            <div>
+                {message}
+            </div>
             <div>
                 <span>likes {likesCount}</span>
             </div>

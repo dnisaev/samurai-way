@@ -18,8 +18,11 @@ function App({state, dispatch}: AppPropsType) {
             <Header/>
             <NavBar/>
             <div className={'app-wrapper-content'}>
-                <Route path={"/profile"} render={() => <Profile profilePage={state.profilePage} dispatch={dispatch}/>}/>
-                <Route path={"/dialogs"} render={() => <Dialogs state={state.dialogPage}/>}/>
+                <Route path={"/profile"} render={() => <Profile profilePage={state.profilePage}
+                                                                dispatch={dispatch}/>}/>
+                <Route path={"/dialogs"} render={() => <Dialogs state={state.dialogPage}
+                                                                newMessageText={state.dialogPage.newMessageText}
+                                                                dispatch={dispatch}/>}/>
             </div>
         </div>
     );

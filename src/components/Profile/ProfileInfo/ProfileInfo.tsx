@@ -4,13 +4,15 @@ import styles from "./ProfileInfo.module.css";
 const ProfileInfo = () => {
     return (
         <div className={styles.content}>
-            <div className={styles.mainImgWrapper}>
-                <img className={styles.mainImg}
-                    src={'https://papik.pro/uploads/posts/2023-02/1675660612_papik-pro-p-sotsialnii-risunok-11.jpg'}
-                    alt={'main-social'} />
-            </div>
-            <div className={styles.descriptionBlock}>
-                Avatar + Description
+            <div className={styles.wrapper}>
+                <img className={styles.avatar}
+                     src={'https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg'}
+                     alt={'avatar-profile'}
+                />
+                <div className={styles.descriptionBlock}>
+                    <h2>Дмитрий Исаев</h2>
+                    <p>Frontend developer</p>
+                </div>
             </div>
         </div>
     );
