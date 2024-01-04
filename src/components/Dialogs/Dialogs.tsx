@@ -7,7 +7,7 @@ import {
     DialogsPageType,
     addMessageAC,
     updateNewMessageTextAC
-} from "../../redux/state";
+} from "../../redux/store";
 
 type DialogsPropsType = {
     state: DialogsPageType
