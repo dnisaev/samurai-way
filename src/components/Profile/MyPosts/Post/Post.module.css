@@ -1,9 +1,13 @@
 .post {
-    color: dimgrey;
     margin-top: 20px;
 }
 
 .post img {
     max-width: 50px;
     border-radius: 50%;
+}
+
+.likes span {
+    color: dimgrey;
+    font-size: 13px;
 }

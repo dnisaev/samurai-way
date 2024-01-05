@@ -1,7 +1,8 @@
 .app-wrapper {
     display: grid;
     max-width: 1200px;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     margin: 0 auto;
 
     grid-template-areas:
