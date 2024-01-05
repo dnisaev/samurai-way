@@ -11,8 +11,8 @@ const Post = ({id, message, likesCount}: PostType) => {
             <div>
                 {message}
             </div>
-            <div>
-                <span>likes {likesCount}</span>
+            <div className={styles.likes}>
+                <span>Нравится: {likesCount}</span>
             </div>
         </div>
     );

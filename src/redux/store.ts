@@ -68,13 +68,13 @@ export let store: StoreType = {
         },
         dialogsPage: {
             dialogs: [
-                {id: v1(), name: 'Dmitriy'},
-                {id: v1(), name: 'Anya'},
-                {id: v1(), name: 'Svetlana'},
-                {id: v1(), name: 'Mama'},
-                {id: v1(), name: 'Papa'},
-                {id: v1(), name: 'Vladimir'},
-                {id: v1(), name: 'Andrey'}
+                {id: v1(), name: 'Андрей'},
+                {id: v1(), name: 'Жена'},
+                {id: v1(), name: 'Света'},
+                {id: v1(), name: 'Мама'},
+                {id: v1(), name: 'Папа'},
+                {id: v1(), name: 'Вова'},
+                {id: v1(), name: 'Незнакомец'}
             ],
             messages: [
                 {id: v1(), message: 'Привет'},

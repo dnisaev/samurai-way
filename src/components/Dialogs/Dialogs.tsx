@@ -48,7 +48,7 @@ const Dialogs = ({state, newMessageText, dispatch}: DialogsPropsType) => {
                         <textarea onChange={onMessageChange} ref={newMessageElement} value={newMessageText}/>
                     </div>
                     <div>
-                        <button onClick={sendMessage}>send message</button>
+                        <button onClick={sendMessage}>Отправить</button>
                     </div>
                 </div>
             </div>

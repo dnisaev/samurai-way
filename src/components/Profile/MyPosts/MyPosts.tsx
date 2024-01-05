@@ -34,7 +34,7 @@ const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
                     <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}/>
                 </div>
                 <div>
-                    <button onClick={onAddPostClick}>add post</button>
+                    <button onClick={onAddPostClick}>Отправить</button>
                 </div>
             </div>
             <div className={styles.posts}>
