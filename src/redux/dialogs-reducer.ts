@@ -1,16 +1,16 @@
-import {ActionsType, AddMessageActionType, DialogsPageType, UpdateNewMessageTextActionType} from "./store";
+import {ActionsType, DialogsPageType} from "./store";
 import {v1} from "uuid";
 
-export const addMessageAC = (): AddMessageActionType => {
+export const addMessageAC = () => {
     return {
         type: "ADD-MESSAGE"
-    }
+    } as const
 }
-export const updateNewMessageTextAC = (newMessageText: string): UpdateNewMessageTextActionType => {
+export const updateNewMessageTextAC = (newMessageText: string) => {
     return {
         type: "UPDATE-NEW-MESSAGE-TEXT",
         newMessageText: newMessageText
-    }
+    } as const
 }
 
 export const dialogsReducer = (state: DialogsPageType, action: ActionsType): DialogsPageType => {

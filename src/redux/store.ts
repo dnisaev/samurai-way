@@ -1,6 +1,14 @@
 import {v1} from "uuid";
-import {profileReducer} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {
+    addPostAC,
+    updateNewPostTextAC,
+    profileReducer
+} from "./profile-reducer";
+import {
+    addMessageAC,
+    updateNewMessageTextAC,
+    dialogsReducer
+} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
 export type MessageType = {
@@ -44,25 +52,10 @@ export type StoreType = {
 }
 
 export type ActionsType =
-    AddPostActionType |
-    UpdateNewPostTextActionType |
-    AddMessageActionType |
-    UpdateNewMessageTextActionType
-
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-export type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-}
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newMessageText: string
-}
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostTextAC> |
+    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof updateNewMessageTextAC>
 
 export let store: StoreType = {
     _state: {

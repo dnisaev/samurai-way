@@ -1,16 +1,16 @@
-import {ActionsType, AddPostActionType, ProfilePageType, UpdateNewPostTextActionType} from "./store";
+import {ActionsType, ProfilePageType} from "./store";
 import {v1} from "uuid";
 
-export const addPostAC = (): AddPostActionType => {
+export const addPostAC = () => {
     return {
         type: "ADD-POST"
-    }
+    } as const
 }
-export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => {
+export const updateNewPostTextAC = (newText: string) => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
         newText: newText
-    }
+    } as const
 }
 
 export const profileReducer = (state: ProfilePageType, action: ActionsType): ProfilePageType => {
