@@ -2,19 +2,15 @@ import React from 'react';
 import styles from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {
-    ActionsType,
-    DialogsPageType,
-} from "../../redux/store";
-import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
     state: DialogsPageType
-    newMessageText: string
-    dispatch: (action: ActionsType) => void
+    sendMessage: () => void
+    updateNewMessageText: (text: string) => void
 }
 
-const Dialogs = ({state, newMessageText, dispatch}: DialogsPropsType) => {
+const Dialogs = ({state, sendMessage, updateNewMessageText}: DialogsPropsType) => {
 
     let dialogsElements = state.dialogs.map((d) => {
         return <Dialog key={d.id} name={d.name} id={d.id}/>
@@ -25,17 +21,17 @@ const Dialogs = ({state, newMessageText, dispatch}: DialogsPropsType) => {
     });
 
     const newMessageElement = React.createRef<HTMLTextAreaElement>();
-    const sendMessage = () => {
-        dispatch(addMessageAC())
+    const onSendMessage = () => {
+        sendMessage()
     }
     const onMessageChange = () => {
         let text = newMessageElement.current?.value;
         if (text) {
-            dispatch(updateNewMessageTextAC(text))
+            updateNewMessageText(text)
         }
     }
 
-    console.log('render: Dialogs')
+    // console.log('render: Dialogs')
     return (
         <div className={styles.dialogsWrapper}>
             <div className={styles.dialogsItems}>
@@ -45,10 +41,12 @@ const Dialogs = ({state, newMessageText, dispatch}: DialogsPropsType) => {
                 <div>{messagesElements}</div>
                 <div>
                     <div>
-                        <textarea onChange={onMessageChange} ref={newMessageElement} value={newMessageText}/>
+                        <textarea onChange={onMessageChange}
+                                  ref={newMessageElement}
+                                  value={state.newMessageText}/>
                     </div>
                     <div>
-                        <button onClick={sendMessage}>Отправить</button>
+                        <button onClick={onSendMessage}>Отправить</button>
                     </div>
                 </div>
             </div>

@@ -1,31 +1,31 @@
 import React from 'react';
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {ActionsType, PostType} from "../../../redux/store";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {PostType} from "../../../redux/profile-reducer";
 
 type MyPostsPropsType = {
     posts: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionsType) => void
+    addPost: () => void
+    updateNewPostText: (text: string) => void
 }
 
-const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
+const MyPosts = ({posts, newPostText, addPost, updateNewPostText}: MyPostsPropsType) => {
 
     const postMessagesElements = posts.map((m) => {
         return <Post key={m.id} message={m.message} likesCount={m.likesCount} id={m.id}/>
     });
     const newPostElement = React.createRef<HTMLTextAreaElement>();
     const onAddPostClick = () => {
-            dispatch(addPostAC())
+        addPost()
     }
     const onPostChange = () => {
         let text = newPostElement.current?.value;
         if (text) {
-            dispatch(updateNewPostTextAC(text));
+            updateNewPostText(text);
         }
     }
-    console.log('render: MyPosts')
+    // console.log('render: MyPosts')
     return (
         <div className={styles.postsBlock}>
             <h3>Мои посты</h3>
