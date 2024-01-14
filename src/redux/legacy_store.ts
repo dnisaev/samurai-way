@@ -39,7 +39,7 @@ type StateType = {
     sidebar: {}
 }
 
-type StoreType = {
+export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
 
@@ -55,7 +55,7 @@ type ActionsType =
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof updateNewMessageTextAC>
 
-let store: StoreType = {
+let legacy_store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -100,4 +100,4 @@ let store: StoreType = {
     }
 }
 
-console.log(store)
+console.log(legacy_store)

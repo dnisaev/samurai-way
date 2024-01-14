@@ -2,31 +2,36 @@ import React from 'react'
 import {addMessageAC, DialogsActionsType, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {ReducersType} from "../../redux/redux-store";
+import {StoreContext} from "../../StoreContext";
 
 type DialogsPropsType = {
-    state: ReducersType
-    dispatch: (action: DialogsActionsType) => void
+    state?: ReducersType
+    dispatch?: (action: DialogsActionsType) => void
 }
 
-const DialogsContainer = ({state, dispatch}: DialogsPropsType) => {
-
-    const dialogsPageState = state.dialogsPage
-
-    const sendMessage = () => {
-        dispatch(addMessageAC())
-    }
-    const updateNewMessageText = (text: string) => {
-        if (text) {
-            dispatch(updateNewMessageTextAC(text))
-        }
-    }
+const DialogsContainer = ({}: DialogsPropsType) => {
 
     // console.log('render: Dialogs')
     return (
-        <Dialogs state={dialogsPageState}
-                 sendMessage={sendMessage}
-                 updateNewMessageText={updateNewMessageText}
-        />
+        <StoreContext.Consumer>
+            {
+                (store) => {
+                    const dialogsPageState = store.getState().dialogsPage
+                    const sendMessage = () => {
+                        store.dispatch(addMessageAC())
+                    }
+                    const updateNewMessageText = (text: string) => {
+                        if (text) {
+                            store.dispatch(updateNewMessageTextAC(text))
+                        }
+                    }
+                    return <Dialogs state={dialogsPageState}
+                                    sendMessage={sendMessage}
+                                    updateNewMessageText={updateNewMessageText}
+                    />
+                }
+            }
+        </StoreContext.Consumer>
     );
 };
 
