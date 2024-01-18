@@ -2,12 +2,12 @@ import {v1} from "uuid";
 import {
     addPostAC,
     updateNewPostTextAC
-} from "./profile-reducer";
+} from "../profile-reducer";
 import {
     addMessageAC,
     updateNewMessageTextAC
-} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebar-reducer";
+} from "../dialogs-reducer";
+import {sidebarReducer} from "../sidebar-reducer";
 
 type MessageType = {
     id: string
