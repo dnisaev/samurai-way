@@ -29,22 +29,27 @@ export type ProfilePageType = {
 
 const initialState = {
     posts: [
-        {id: v1(), message: 'Всем привет!!!', likesCount: 11},
-        {id: v1(), message: 'Добро пожаловать в мою социальную сеть «Welcome»', likesCount: 15}
+        {id: v1(), message: 'Добро пожаловать в мою социальную сеть «Welcome»', likesCount: 15},
+        {id: v1(), message: 'Всем привет!!!', likesCount: 11}
     ],
-    newPostText: ''}
+    newPostText: ''
+}
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST": {
-            let newPost = {id: v1(), message: state.newPostText, likesCount: 0};
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
+            const newPost = {id: v1(), message: state.newPostText, likesCount: 0};
+            return {
+                ...state,
+                posts: [newPost, ...state.posts],
+                newPostText: ''
+            };
         }
         case "UPDATE-NEW-POST-TEXT": {
-            state.newPostText = action.newText;
-            return state;
+            return {
+                ...state,
+                newPostText: action.newText
+            };
         }
         default: {
             return state;
