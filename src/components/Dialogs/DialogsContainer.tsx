@@ -1,14 +1,7 @@
-// import React from 'react'
-// import {Legacy_StoreContext} from "../../redux/legacy_StoreContext";
 import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {ActionsType, ReducersType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-
-// type DialogsPropsType = {
-//     state?: ReducersType
-//     dispatch?: (action: DialogsActionsType) => void
-// }
 
 const mapStateToProps = (state: ReducersType) => {
     return {

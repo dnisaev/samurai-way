@@ -7,11 +7,6 @@ import MyPosts from "./MyPosts";
 import {ActionsType, ReducersType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 
-// type MyPostsPropsType = {
-//     state?: ReducersType
-//     dispatch?: (action: ProfileActionsType) => void
-// }
-
 const mapStateToProps = (state: ReducersType) => {
     return {
         posts: state.profilePage.posts,
