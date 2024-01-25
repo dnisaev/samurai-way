@@ -2,10 +2,10 @@ import React from 'react';
 import styles from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {DialogsPageType} from "../../redux/dialogs-reducer";
+import {DialogsStateType} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
-    state: DialogsPageType
+    state: DialogsStateType
     sendMessage: () => void
     updateNewMessageText: (text: string) => void
 }
@@ -31,7 +31,7 @@ const Dialogs = ({state, sendMessage, updateNewMessageText}: DialogsPropsType) =
         }
     }
 
-    // console.log('render: Dialogs')
+    console.log('render: Dialogs')
     return (
         <div className={styles.dialogsWrapper}>
             <div className={styles.dialogsItems}>

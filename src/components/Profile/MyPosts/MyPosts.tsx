@@ -25,7 +25,7 @@ const MyPosts = ({posts, newPostText, addPost, updateNewPostText}: MyPostsPropsT
             updateNewPostText(text);
         }
     }
-    // console.log('render: MyPosts')
+    console.log('render: MyPosts')
     return (
         <div className={styles.postsBlock}>
             <h3>Мои посты</h3>

@@ -4,7 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = () => {
-    // console.log('render: Profile')
+    console.log('render: Profile')
     return (
         <div className={styles.content}>
             <ProfileInfo/>

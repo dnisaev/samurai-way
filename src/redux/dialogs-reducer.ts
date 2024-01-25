@@ -24,7 +24,7 @@ export type DialogType = {
     id: string
     name: string
 }
-export type DialogsPageType = {
+export type DialogsStateType = {
     messages: Array<MessageType>
     dialogs: Array<DialogType>
     newMessageText: string
@@ -47,7 +47,7 @@ const initialState = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType): DialogsPageType => {
+export const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsActionsType): DialogsStateType => {
 
     switch (action.type) {
         case "ADD-MESSAGE": {

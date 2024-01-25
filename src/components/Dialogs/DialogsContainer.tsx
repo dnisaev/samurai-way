@@ -23,30 +23,4 @@ const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
-// const Legacy_DialogsContainer = ({}: DialogsPropsType) => {
-//
-//     // console.log('render: Dialogs')
-//     return (
-//         <Legacy_StoreContext.Consumer>
-//             {
-//                 (store) => {
-//                     const dialogsPageState = store.getState().dialogsPage
-//                     const sendMessage = () => {
-//                         store.dispatch(addMessageAC())
-//                     }
-//                     const updateNewMessageText = (text: string) => {
-//                         if (text) {
-//                             store.dispatch(updateNewMessageTextAC(text))
-//                         }
-//                     }
-//                     return <Dialogs state={dialogsPageState}
-//                                     sendMessage={sendMessage}
-//                                     updateNewMessageText={updateNewMessageText}
-//                     />
-//                 }
-//             }
-//         </Legacy_StoreContext.Consumer>
-//     );
-// };
-
 export default DialogsContainer;

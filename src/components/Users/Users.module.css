@@ -1,0 +1,9 @@
+.userWrapper {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 10px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
