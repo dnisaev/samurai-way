@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from "./ProfileInfo.module.css";
+import defaultAvatar from "./../../../assets/images/default-avatar.svg";
 
 const ProfileInfo = () => {
     console.log('render: ProfileInfo')
@@ -7,7 +8,7 @@ const ProfileInfo = () => {
         <div className={styles.content}>
             <div className={styles.wrapper}>
                 <img className={styles.avatar}
-                     src={'https://www.svgrepo.com/show/1356/man.svg'}
+                     src={defaultAvatar}
                      alt={'avatar-profile'}
                 />
                 <div className={styles.descriptionBlock}>
