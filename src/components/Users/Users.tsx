@@ -3,6 +3,7 @@ import {UserType} from "../../redux/users-reducer";
 import styles from "./Users.module.css";
 import axios from "axios";
 import defaultAvatar from "./../../assets/images/default-avatar.svg";
+import {v1} from "uuid";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -13,22 +14,20 @@ type UsersPropsType = {
 
 class Users extends React.Component<UsersPropsType> {
 
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items)
-            })
-        }
+    constructor(props: UsersPropsType) {
+        super(props);
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
     render() {
         console.log('render: UsersClass')
         return (
             <div>
-                <button onClick={this.getUsers}>Загрузить пользователей</button>
                 {
                     this.props.users.map((u) => {
-                        return <div key={u.id} className={styles.userWrapper}>
+                        return <div key={v1()} className={styles.userWrapper}>
                             <div>
                                 <div>
                                     <img src={u.photos.small !== null
