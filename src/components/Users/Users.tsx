@@ -16,7 +16,7 @@ const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
         setUsers([
             {
                 id: v1(),
-                avatarUrl: "https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg",
+                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
                 followed: false,
                 fullName: 'Дмитрий',
                 status: 'Культурный код',
@@ -24,7 +24,7 @@ const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
             },
             {
                 id: v1(),
-                avatarUrl: "https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg",
+                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
                 followed: true,
                 fullName: 'Анна',
                 status: 'Люблю путешествовать',
@@ -32,7 +32,7 @@ const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
             },
             {
                 id: v1(),
-                avatarUrl: "https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg",
+                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
                 followed: false,
                 fullName: 'Владимир',
                 status: 'Сила в правде!',
@@ -40,7 +40,7 @@ const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
             },
             {
                 id: v1(),
-                avatarUrl: "https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg",
+                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
                 followed: false,
                 fullName: 'Андрей',
                 status: 'Я не толстый, это мускулы',

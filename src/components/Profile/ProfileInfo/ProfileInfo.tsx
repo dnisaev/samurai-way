@@ -7,7 +7,7 @@ const ProfileInfo = () => {
         <div className={styles.content}>
             <div className={styles.wrapper}>
                 <img className={styles.avatar}
-                     src={'https://papirusi.com/assets/images/7be0/7be089687fb94897870523007100d43a.jpg'}
+                     src={'https://www.svgrepo.com/show/1356/man.svg'}
                      alt={'avatar-profile'}
                 />
                 <div className={styles.descriptionBlock}>
