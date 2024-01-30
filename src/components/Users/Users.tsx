@@ -11,46 +11,48 @@ type UsersPropsType = {
     setUsers: (users: Array<UserType>) => void
 }
 
-const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
+class Users extends React.Component<UsersPropsType> {
 
-    const getUsers = () => {
-        if (users.length === 0) {
+    getUsers = () => {
+        if (this.props.users.length === 0) {
             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             })
         }
     }
 
-    console.log('render: Users')
-    return (
-        <div>
-            <button onClick={getUsers}>Загрузить пользователей</button>
-            {
-                users.map((u) => {
-                    return <div key={u.id} className={styles.userWrapper}>
-                        <div>
+    render() {
+        console.log('render: UsersClass')
+        return (
+            <div>
+                <button onClick={this.getUsers}>Загрузить пользователей</button>
+                {
+                    this.props.users.map((u) => {
+                        return <div key={u.id} className={styles.userWrapper}>
                             <div>
-                                <img src={u.photos.small !== null
-                                    ? u.photos.small
-                                    : defaultAvatar} width={'90px'} height={'auto'} alt={'user-avatar'}/>
+                                <div>
+                                    <img src={u.photos.small !== null
+                                        ? u.photos.small
+                                        : defaultAvatar} width={'90px'} height={'auto'} alt={'user-avatar'}/>
+                                </div>
+                                <div>
+                                    {u.followed
+                                        ? <button onClick={() => this.props.unfollow(u.id)}>Отписаться</button>
+                                        : <button onClick={() => this.props.follow(u.id)}>Подписаться</button>}
+                                </div>
                             </div>
                             <div>
-                                {u.followed
-                                    ? <button onClick={() => unfollow(u.id)}>Отписаться</button>
-                                    : <button onClick={() => follow(u.id)}>Подписаться</button>}
+                                <div>
+                                    <div>{u.name}</div>
+                                    <div>{u.status}</div>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </div>
-                        </div>
-                    </div>
-                })
-            }
-        </div>
-    );
-};
+                    })
+                }
+            </div>
+        );
+    }
+}
 
 export default Users;
