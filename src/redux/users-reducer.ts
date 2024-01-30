@@ -24,14 +24,13 @@ export const setUsersAC = (users: Array<UserType>) => {
 
 export type UserType = {
     id: string
-    avatarUrl: string
-    followed: boolean
-    fullName: string
+    name: string
     status: string
-    location: {
-        city: string
-        country: string
+    photos: {
+        small: string
+        large: string
     }
+    followed: boolean
 }
 
 export type UsersStateType = {

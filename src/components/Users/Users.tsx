@@ -1,7 +1,8 @@
 import React from "react";
 import {UserType} from "../../redux/users-reducer";
 import styles from "./Users.module.css";
-import {v1} from "uuid";
+import axios from "axios";
+import defaultAvatar from "./../../assets/images/default-avatar.svg";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -12,52 +13,26 @@ type UsersPropsType = {
 
 const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
 
-    if (users.length === 0) {
-        setUsers([
-            {
-                id: v1(),
-                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
-                followed: false,
-                fullName: 'Дмитрий',
-                status: 'Культурный код',
-                location: {city: 'Москва', country: 'Россия'}
-            },
-            {
-                id: v1(),
-                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
-                followed: true,
-                fullName: 'Анна',
-                status: 'Люблю путешествовать',
-                location: {city: 'Москва', country: 'Россия'}
-            },
-            {
-                id: v1(),
-                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
-                followed: false,
-                fullName: 'Владимир',
-                status: 'Сила в правде!',
-                location: {city: 'Санкт-Петербург', country: 'Россия'}
-            },
-            {
-                id: v1(),
-                avatarUrl: "https://www.svgrepo.com/show/1356/man.svg",
-                followed: false,
-                fullName: 'Андрей',
-                status: 'Я не толстый, это мускулы',
-                location: {city: 'Минск', country: 'Беларусь'}
-            },
-        ])
+    const getUsers = () => {
+        if (users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+                setUsers(response.data.items)
+            })
+        }
     }
 
     console.log('render: Users')
     return (
         <div>
+            <button onClick={getUsers}>Загрузить пользователей</button>
             {
                 users.map((u) => {
                     return <div key={u.id} className={styles.userWrapper}>
                         <div>
                             <div>
-                                <img src={u.avatarUrl} width={'90px'} height={'auto'} alt={'user-avatar'}/>
+                                <img src={u.photos.small !== null
+                                    ? u.photos.small
+                                    : defaultAvatar} width={'90px'} height={'auto'} alt={'user-avatar'}/>
                             </div>
                             <div>
                                 {u.followed
@@ -67,12 +42,8 @@ const Users = ({users, follow, unfollow, setUsers}: UsersPropsType) => {
                         </div>
                         <div>
                             <div>
-                                <div>{u.fullName}</div>
+                                <div>{u.name}</div>
                                 <div>{u.status}</div>
-                            </div>
-                            <div>
-                                <div>{u.location.country}</div>
-                                <div>{u.location.city}</div>
                             </div>
                         </div>
                     </div>
