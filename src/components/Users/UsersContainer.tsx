@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
-import {ActionsType, ReducersType} from "../../redux/redux-store";
+import {ReducersType} from "../../redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unfollow,
     UserType
 } from "../../redux/users-reducer";
 import React from "react";
@@ -57,7 +57,7 @@ class UsersContainer extends React.Component<UsersAPIPropsType> {
 
         return (
             <>
-                {this.props.isFetching ? <Preloader /> : null}
+                {this.props.isFetching ? <Preloader/> : null}
                 <Users users={this.props.users}
                        follow={this.props.follow}
                        unfollow={this.props.unfollow}
@@ -81,35 +81,7 @@ let mapStateToProps = (state: ReducersType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: (type: ActionsType) => void) => {
-    return {
-        follow: (userId: string) => {
-            const action = followAC(userId);
-            dispatch(action)
-        },
-        unfollow: (userId: string) => {
-            const action = unfollowAC(userId);
-            dispatch(action)
-        },
-        setUsers: (users: Array<UserType>) => {
-            const action = setUsersAC(users);
-            dispatch(action)
-        },
-        setCurrentPage: (currentPage: number) => {
-            const action = setCurrentPageAC(currentPage);
-            dispatch(action)
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            const action = setTotalUsersCountAC(totalCount);
-            dispatch(action)
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            const action = toggleIsFetchingAC(isFetching);
-            dispatch(action)
-        }
-
-
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow, unfollow, setUsers,
+    setCurrentPage, setTotalUsersCount, toggleIsFetching
+})(UsersContainer);

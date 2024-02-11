@@ -1,42 +1,42 @@
 export type UsersActionsType =
-    ReturnType<typeof followAC> |
-    ReturnType<typeof unfollowAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalUsersCountAC> |
-    ReturnType<typeof toggleIsFetchingAC>
+    ReturnType<typeof follow> |
+    ReturnType<typeof unfollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalUsersCount> |
+    ReturnType<typeof toggleIsFetching>
 
-export const followAC = (userId: string) => {
+export const follow = (userId: string) => {
     return {
         type: "FOLLOW",
         userId: userId
     } as const
 }
-export const unfollowAC = (userId: string) => {
+export const unfollow = (userId: string) => {
     return {
         type: "UNFOLLOW",
         userId: userId
     } as const
 }
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
     return {
         type: "SET-USERS",
         users: users
     } as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: "SET-CURRENT-PAGE",
         currentPage: currentPage
     } as const
 }
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
     return {
         type: "SET-TOTAL-USERS-COUNT",
         totalCount: totalCount
     } as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: "TOGGLE-IS-FETCHING",
         isFetching: isFetching
