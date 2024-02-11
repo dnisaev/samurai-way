@@ -3,11 +3,15 @@ import styles from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-const Profile = () => {
+type ProfilePropsType = {
+    profile: any
+}
+
+const Profile = ({profile}: ProfilePropsType) => {
     console.log('render: Profile')
     return (
         <div className={styles.content}>
-            <ProfileInfo/>
+            <ProfileInfo profile={profile}/>
             <MyPostsContainer />
         </div>
     );

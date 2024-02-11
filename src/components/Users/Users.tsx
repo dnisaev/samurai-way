@@ -3,6 +3,7 @@ import styles from "./Users.module.css";
 import {v1} from "uuid";
 import defaultAvatar from "../../assets/images/default-avatar.svg";
 import {UserType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -14,11 +15,17 @@ type UsersPropsType = {
     onClickPageChanges: (number: number) => void
 }
 
-const Users = ({users, follow, unfollow, currentPage, onClickPageChanges, totalUsersCount, pageSize}: UsersPropsType) => {
+const Users = ({
+                   users,
+                   follow,
+                   unfollow,
+                   currentPage,
+                   onClickPageChanges,
+                   totalUsersCount,
+                   pageSize
+               }: UsersPropsType) => {
     console.log('render: Users')
 
-    //const pagesCountNumber = Math.ceil(totalUsersCount / pageSize);
-    //console.log(pagesCountNumber);
     const pagesCountArray = [];
     for (let i = 1; i <= 10; i++) {
         pagesCountArray.push(i);
@@ -42,9 +49,11 @@ const Users = ({users, follow, unfollow, currentPage, onClickPageChanges, totalU
                     return <div key={v1()} className={styles.userWrapper}>
                         <div>
                             <div>
-                                <img src={user.photos.small !== null
-                                    ? user.photos.small
-                                    : defaultAvatar} width={'90px'} height={'auto'} alt={'user-avatar'}/>
+                                <NavLink to={`/profile/${user.id}`}>
+                                    <img src={user.photos.small !== null
+                                        ? user.photos.small
+                                        : defaultAvatar} width={'90px'} height={'auto'} alt={'user-avatar'}/>
+                                </NavLink>
                             </div>
                             <div>
                                 {user.followed

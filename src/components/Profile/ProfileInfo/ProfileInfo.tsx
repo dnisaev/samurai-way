@@ -1,19 +1,26 @@
 import React from 'react';
 import styles from "./ProfileInfo.module.css";
-import defaultAvatar from "./../../../assets/images/default-avatar.svg";
+import Preloader from "../../common/Preloader/Preloader";
 
-const ProfileInfo = () => {
+type ProfileInfoType = {
+    profile: any
+}
+
+const ProfileInfo = ({profile}: ProfileInfoType) => {
     console.log('render: ProfileInfo')
+    if(!profile){
+        return <Preloader/>
+    }
     return (
         <div className={styles.content}>
             <div className={styles.wrapper}>
                 <img className={styles.avatar}
-                     src={defaultAvatar}
+                     src={profile.photos.large}
                      alt={'avatar-profile'}
                 />
                 <div className={styles.descriptionBlock}>
-                    <h2>Дмитрий Исаев</h2>
-                    <p>Frontend developer</p>
+                    <h2>{profile.fullName}</h2>
+                    <p>{profile.lookingForAJobDescription}</p>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {
-    addPostAC,
-    updateNewPostTextAC
+    addPost,
+    updateNewPostText
 } from "../profile-reducer";
 import {
     addMessageAC,
@@ -50,8 +50,8 @@ export type StoreType = {
 }
 
 type ActionsType =
-    ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateNewPostTextAC> |
+    ReturnType<typeof addPost> |
+    ReturnType<typeof updateNewPostText> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof updateNewMessageTextAC>
 
