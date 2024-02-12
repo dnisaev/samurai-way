@@ -9,7 +9,7 @@ type PreloaderPropsType = {
 const Preloader = ({width}: PreloaderPropsType) => {
     return (
         <PreloaderWrapper>
-            <img src={preloader} alt={'preloader'} width={width || '25px'}/>
+            <img src={preloader} alt={'preloader'} width={width || '50px'}/>
         </PreloaderWrapper>
     );
 };
@@ -19,5 +19,7 @@ export default Preloader;
 const PreloaderWrapper = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    position: absolute;
+    height: 30vh;
+    width: 50%;
 `
