@@ -1,9 +1,17 @@
 import React from 'react';
 import styles from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
+import defaultAvatar from "../../../assets/images/default-avatar.svg";
 
 type ProfileInfoType = {
-    profile: any
+    profile: {
+        photos: {
+            large: string
+            small: string
+        }
+        fullName: string
+        lookingForAJobDescription: string
+    }
 }
 
 const ProfileInfo = ({profile}: ProfileInfoType) => {
@@ -15,7 +23,7 @@ const ProfileInfo = ({profile}: ProfileInfoType) => {
         <div className={styles.content}>
             <div className={styles.wrapper}>
                 <img className={styles.avatar}
-                     src={profile.photos.large}
+                     src={profile.photos.large ? profile.photos.large : defaultAvatar}
                      alt={'avatar-profile'}
                 />
                 <div className={styles.descriptionBlock}>

@@ -3,9 +3,17 @@
     margin-left: 5px;
     grid-area: h;
     background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header img {
     height: 100%;
+    max-width: 75px;
     width: auto;
+}
+
+.loginBlock {
+    float: right;
 }

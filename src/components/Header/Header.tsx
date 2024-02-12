@@ -1,15 +1,23 @@
 import React from 'react';
 import styles from "./Header.module.css";
+import logo from "../../assets/images/logo.gif";
+import {NavLink} from "react-router-dom";
 
-const Header = () => {
+type HeaderPropsType = {
+    isAuth: boolean
+    login: string | null
+}
+
+const Header = ({isAuth, login}: HeaderPropsType) => {
     console.log('render: Header')
     return (
         <header className={styles.header}>
             <a href={'/samurai-way'}>
-                <img src={"https://img.artlebedev.ru/everything/russia-logo/russia-logo.gif"}
-                     alt={"logo"}
-                />
+                <img src={logo} alt={"logo"}/>
             </a>
+            <div className={styles.loginBlock}>
+                <NavLink to={'/login'}>{isAuth ? login : 'Войти'}</NavLink>
+            </div>
         </header>
     );
 };

@@ -6,11 +6,11 @@ import {DialogsStateType} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
     state: DialogsStateType
-    sendMessage: () => void
+    addMessage: () => void
     updateNewMessageText: (text: string) => void
 }
 
-const Dialogs = ({state, sendMessage, updateNewMessageText}: DialogsPropsType) => {
+const Dialogs = ({state, addMessage, updateNewMessageText}: DialogsPropsType) => {
 
     let dialogsElements = state.dialogs.map((d) => {
         return <Dialog key={d.id} name={d.name} id={d.id}/>
@@ -21,9 +21,7 @@ const Dialogs = ({state, sendMessage, updateNewMessageText}: DialogsPropsType) =
     });
 
     const newMessageElement = React.createRef<HTMLTextAreaElement>();
-    const onSendMessage = () => {
-        sendMessage()
-    }
+
     const onMessageChange = () => {
         let text = newMessageElement.current?.value;
         if (text) {
@@ -46,7 +44,7 @@ const Dialogs = ({state, sendMessage, updateNewMessageText}: DialogsPropsType) =
                                   value={state.newMessageText}/>
                     </div>
                     <div>
-                        <button onClick={onSendMessage}>Отправить</button>
+                        <button onClick={addMessage}>Отправить</button>
                     </div>
                 </div>
             </div>

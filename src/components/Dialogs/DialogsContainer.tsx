@@ -1,6 +1,6 @@
-import {addMessageAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {addMessage, updateNewMessageText} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import {ActionsType, ReducersType} from "../../redux/redux-store";
+import {ReducersType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 
 const mapStateToProps = (state: ReducersType) => {
@@ -8,19 +8,20 @@ const mapStateToProps = (state: ReducersType) => {
         state: state.dialogsPage
     }
 }
-const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
-    return {
-        sendMessage: () => {
-            dispatch(addMessageAC())
-        },
-        updateNewMessageText: (text: string) => {
-            if (text) {
-                dispatch(updateNewMessageTextAC(text))
-            }
-        }
-    }
-}
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+// const mapDispatchToProps = (dispatch: (action: ActionsType) => void) => {
+//     return {
+//         sendMessage: () => {
+//             dispatch(addMessage())
+//         },
+//         updateNewMessageText: (text: string) => {
+//             if (text) {
+//                 dispatch(updateNewMessageText(text))
+//             }
+//         }
+//     }
+// }
+
+const DialogsContainer = connect(mapStateToProps, {addMessage, updateNewMessageText})(Dialogs);
 
 export default DialogsContainer;

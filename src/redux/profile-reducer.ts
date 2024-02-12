@@ -17,7 +17,7 @@ export const updateNewPostText = (newText: string) => {
     } as const
 }
 
-export const setUserProfile = (profile: string) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: "SET-USER-PROFILE",
         profile: profile
@@ -30,10 +30,31 @@ export type PostType = {
     likesCount: number
 }
 
+export type ProfileType = {
+    aboutMe?: string | null
+    contacts?: {
+        facebook?: string | null
+        website?: string | null
+        vk?: string | null
+        twitter?: string | null
+        instagram?: string | null
+        youtube?: string | null
+        mainLink?: string | null
+    },
+    lookingForAJob?: boolean | null
+    lookingForAJobDescription?: string | null
+    fullName: string | null
+    userId: number
+    photos?: {
+        small?: string | null
+        large?: string | null
+    }
+}
+
 export type ProfileStateType = {
     posts: Array<PostType>
     newPostText: string
-    profile: any
+    profile: ProfileType | null
 }
 
 const initialState = {

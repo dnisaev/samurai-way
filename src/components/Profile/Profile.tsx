@@ -4,7 +4,14 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
-    profile: any
+    profile: {
+        photos: {
+            large: string
+            small: string
+        }
+        fullName: string
+        lookingForAJobDescription: string
+    }
 }
 
 const Profile = ({profile}: ProfilePropsType) => {

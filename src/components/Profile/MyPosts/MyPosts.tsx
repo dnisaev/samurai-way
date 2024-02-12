@@ -16,9 +16,7 @@ const MyPosts = ({posts, newPostText, addPost, updateNewPostText}: MyPostsPropsT
         return <Post key={m.id} message={m.message} likesCount={m.likesCount} id={m.id}/>
     });
     const newPostElement = React.createRef<HTMLTextAreaElement>();
-    const onAddPostClick = () => {
-        addPost()
-    }
+
     const onPostChange = () => {
         let text = newPostElement.current?.value;
         if (text) {
@@ -34,7 +32,7 @@ const MyPosts = ({posts, newPostText, addPost, updateNewPostText}: MyPostsPropsT
                     <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}/>
                 </div>
                 <div>
-                    <button onClick={onAddPostClick}>Отправить</button>
+                    <button onClick={addPost}>Отправить</button>
                 </div>
             </div>
             <div className={styles.posts}>

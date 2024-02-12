@@ -4,8 +4,8 @@ import {
     updateNewPostText
 } from "../profile-reducer";
 import {
-    addMessageAC,
-    updateNewMessageTextAC
+    addMessage,
+    updateNewMessageText
 } from "../dialogs-reducer";
 import {sidebarReducer} from "../sidebar-reducer";
 
@@ -52,8 +52,8 @@ export type StoreType = {
 type ActionsType =
     ReturnType<typeof addPost> |
     ReturnType<typeof updateNewPostText> |
-    ReturnType<typeof addMessageAC> |
-    ReturnType<typeof updateNewMessageTextAC>
+    ReturnType<typeof addMessage> |
+    ReturnType<typeof updateNewMessageText>
 
 let legacy_store: StoreType = {
     _state: {

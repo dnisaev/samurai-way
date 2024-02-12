@@ -1,15 +1,15 @@
 import {v1} from "uuid";
 
 export type DialogsActionsType =
-    ReturnType<typeof addMessageAC> |
-    ReturnType<typeof updateNewMessageTextAC>
+    ReturnType<typeof addMessage> |
+    ReturnType<typeof updateNewMessageText>
 
-export const addMessageAC = () => {
+export const addMessage = () => {
     return {
         type: "ADD-MESSAGE"
     } as const
 }
-export const updateNewMessageTextAC = (newMessageText: string) => {
+export const updateNewMessageText = (newMessageText: string) => {
     return {
         type: "UPDATE-NEW-MESSAGE-TEXT",
         newMessageText: newMessageText
