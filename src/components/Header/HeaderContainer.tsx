@@ -14,7 +14,10 @@ type AuthAPIPropsType = {
 class HeaderContainer extends React.Component<AuthAPIPropsType> {
     componentDidMount() {
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
+            .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+                withCredentials: true,
+                headers: {"API-KEY" : "bb82ba3c-ed1e-4248-bb07-d52f74e8ed63"}
+            })
             .then(response => {
                 console.log(response)
                 if (response.data.resultCode === 0) {

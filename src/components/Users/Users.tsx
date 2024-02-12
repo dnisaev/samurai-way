@@ -4,6 +4,7 @@ import {v1} from "uuid";
 import defaultAvatar from "../../assets/images/default-avatar.svg";
 import {UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -57,8 +58,26 @@ const Users = ({
                             </div>
                             <div>
                                 {user.followed
-                                    ? <button onClick={() => unfollow(user.id)}>Отписаться</button>
-                                    : <button onClick={() => follow(user.id)}>Подписаться</button>}
+                                    ? <button onClick={() => {
+                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                                            withCredentials: true,
+                                            headers: {"API-KEY" : "bb82ba3c-ed1e-4248-bb07-d52f74e8ed63"}
+                                        }).then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                unfollow(user.id);
+                                            }
+                                        })
+                                    }}>Отписаться</button>
+                                    : <button onClick={() => {
+                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, null, {
+                                            withCredentials: true,
+                                            headers: {"API-KEY" : "bb82ba3c-ed1e-4248-bb07-d52f74e8ed63"}
+                                        }).then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                follow(user.id);
+                                            }
+                                        })
+                                    }}>Подписаться</button>}
                             </div>
                         </div>
                         <div>
