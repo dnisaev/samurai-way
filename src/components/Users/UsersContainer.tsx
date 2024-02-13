@@ -13,21 +13,26 @@ import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {usersAPI} from "../../api/api";
 
-type UsersAPIPropsType = {
+type MapStatePropsType = {
     users: Array<UserType>
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: Array<UserType>) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
+}
+
+type MapDispatchPropsType = {
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
+    setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
-    isFetching: boolean
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-class UsersContainer extends React.Component<UsersAPIPropsType> {
+type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
+
+class UsersContainer extends React.Component<UsersContainerPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true);
@@ -67,7 +72,7 @@ class UsersContainer extends React.Component<UsersAPIPropsType> {
     }
 }
 
-let mapStateToProps = (state: ReducersType) => {
+let mapStateToProps = (state: ReducersType): MapStatePropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

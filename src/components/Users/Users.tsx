@@ -21,9 +21,7 @@ const Users = ({
                    follow,
                    unfollow,
                    currentPage,
-                   onClickPageChanges,
-                   totalUsersCount,
-                   pageSize
+                   onClickPageChanges
                }: UsersPropsType) => {
     console.log('render: Users')
 

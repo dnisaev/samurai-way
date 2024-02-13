@@ -2,14 +2,26 @@ import React from 'react';
 import styles from "./Profile.module.css";
 import Profile from './Profile';
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/profile-reducer";
+import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
 import {ReducersType} from "../../redux/redux-store";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {profileAPI, usersAPI} from "../../api/api";
 
-type ProfileAPIPropsType = {}
+type PathParamsType = {
+    userId: string
+}
 
-class ProfileContainer extends React.Component<any> {
+type MapStatePropsType = {
+    profile: ProfileType | null
+}
+
+type MapDispatchPropsType = {
+    setUserProfile: (profile: ProfileType) => void
+}
+
+type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & MapStatePropsType & MapDispatchPropsType
+
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId;
@@ -30,13 +42,13 @@ class ProfileContainer extends React.Component<any> {
         console.log('render: ProfileContainer')
         return (
             <div className={styles.content}>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile profile={this.props.profile}/>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state: ReducersType) => {
+const mapStateToProps = (state: ReducersType): MapStatePropsType => {
     return {
         profile: state.profilePage.profile
     }
