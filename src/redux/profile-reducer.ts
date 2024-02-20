@@ -1,9 +1,9 @@
 import {v1} from "uuid";
 
 export type ProfileActionsType =
-    ReturnType<typeof addPost> |
-    ReturnType<typeof updateNewPostText> |
-    ReturnType<typeof setUserProfile>
+    | ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof setUserProfile>
 
 export const addPost = () => {
     return {

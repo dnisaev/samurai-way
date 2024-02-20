@@ -1,8 +1,8 @@
 import {v1} from "uuid";
 
 export type DialogsActionsType =
-    ReturnType<typeof addMessage> |
-    ReturnType<typeof updateNewMessageText>
+    | ReturnType<typeof addMessage>
+    | ReturnType<typeof updateNewMessageText>
 
 export const addMessage = () => {
     return {
