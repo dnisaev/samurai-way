@@ -3,14 +3,16 @@ import styles from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {DialogsStateType} from "../../redux/dialogs-reducer";
+import {Redirect} from "react-router-dom";
 
 type DialogsPropsType = {
     state: DialogsStateType
     addMessage: () => void
     updateNewMessageText: (text: string) => void
+    isAuth: boolean
 }
 
-const Dialogs = ({state, addMessage, updateNewMessageText}: DialogsPropsType) => {
+export const Dialogs = ({state, addMessage, updateNewMessageText, isAuth}: DialogsPropsType) => {
 
     let dialogsElements = state.dialogs.map((d) => {
         return <Dialog key={d.id} name={d.name} id={d.id}/>
@@ -28,6 +30,8 @@ const Dialogs = ({state, addMessage, updateNewMessageText}: DialogsPropsType) =>
             updateNewMessageText(text)
         }
     }
+
+    if (!isAuth) return <Redirect to={'/login'}/>
 
     console.log('render: Dialogs')
     return (
@@ -51,5 +55,3 @@ const Dialogs = ({state, addMessage, updateNewMessageText}: DialogsPropsType) =>
         </div>
     );
 };
-
-export default Dialogs;
