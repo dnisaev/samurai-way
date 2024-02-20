@@ -6,11 +6,11 @@ import {UsersActionsType, usersReducer} from "./users-reducer";
 import {AuthActionsType, authReducer} from "./auth-reducer";
 import {thunk as thunkMiddleware} from "redux-thunk";
 
-export type ReducersType = ReturnType<typeof reducers>
+export type ReducersType = ReturnType<typeof rootReducer>
 
 export type ActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType | AuthActionsType
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
@@ -19,7 +19,7 @@ const reducers = combineReducers({
 })
 
 // @ts-ignore
-export const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 // @ts-ignore
 window.store = store;
