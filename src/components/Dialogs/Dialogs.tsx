@@ -3,16 +3,14 @@ import styles from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {DialogsStateType} from "../../redux/dialogs-reducer";
-import {Redirect} from "react-router-dom";
 
 type DialogsPropsType = {
     state: DialogsStateType
     addMessage: () => void
     updateNewMessageText: (text: string) => void
-    isAuth: boolean
 }
 
-export const Dialogs = ({state, addMessage, updateNewMessageText, isAuth}: DialogsPropsType) => {
+export const Dialogs = ({state, addMessage, updateNewMessageText}: DialogsPropsType) => {
 
     let dialogsElements = state.dialogs.map((d) => {
         return <Dialog key={d.id} name={d.name} id={d.id}/>
@@ -30,8 +28,6 @@ export const Dialogs = ({state, addMessage, updateNewMessageText, isAuth}: Dialo
             updateNewMessageText(text)
         }
     }
-
-    if (!isAuth) return <Redirect to={'/login'}/>
 
     console.log('render: Dialogs')
     return (

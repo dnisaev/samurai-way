@@ -4,7 +4,8 @@ import Profile from './Profile';
 import {connect} from "react-redux";
 import {getProfileTC, ProfileType} from "../../redux/profile-reducer";
 import {ReducersType} from "../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
@@ -13,12 +14,10 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         if (!userId) {
             userId = "30560"
         }
-       this.props.getProfileTC(userId)
+        this.props.getProfileTC(userId)
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to={'/login'}/>
-
         console.log('render: ProfileContainer')
 
         return (
@@ -29,20 +28,18 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-const mapStateToProps = (state: ReducersType): MapStatePropsType => {
-    return {
-        profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
-    }
-}
 
-const WithUrlDataContainer = withRouter(ProfileContainer);
+const mapStateToProps = (state: ReducersType): MapStatePropsType =>
+    ({profile: state.profilePage.profile});
+
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+// @ts-ignore
+const WithUrlDataContainer = withRouter(AuthRedirectComponent);
 
 export default connect(mapStateToProps, {getProfileTC})(WithUrlDataContainer);
 
 type MapStatePropsType = {
     profile: ProfileType | null
-    isAuth: boolean
 }
 type MapDispatchPropsType = {
     getProfileTC: (userId: string) => void
@@ -50,4 +47,7 @@ type MapDispatchPropsType = {
 type PathParamsType = {
     userId: string
 }
-type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & MapStatePropsType & MapDispatchPropsType
+type ProfileContainerPropsType =
+    RouteComponentProps<PathParamsType>
+    & MapStatePropsType
+    & MapDispatchPropsType
