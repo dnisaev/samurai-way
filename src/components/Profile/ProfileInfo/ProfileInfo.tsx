@@ -7,9 +7,11 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileType | null
+    status: string
+    updateStatusTC: (status: string) => void
 }
 
-const ProfileInfo = ({profile}: ProfileInfoType) => {
+const ProfileInfo = ({profile, status, updateStatusTC}: ProfileInfoType) => {
     console.log('render: ProfileInfo')
     if(!profile){
         return <Preloader/>
@@ -24,7 +26,7 @@ const ProfileInfo = ({profile}: ProfileInfoType) => {
                 <div className={styles.descriptionBlock}>
                     <h2>{profile.fullName}</h2>
                     <p>{profile.lookingForAJobDescription}</p>
-                    <ProfileStatus status={'Hello everybody!'}/>
+                    <ProfileStatus status={status} updateStatusTC={updateStatusTC}/>
                 </div>
             </div>
         </div>

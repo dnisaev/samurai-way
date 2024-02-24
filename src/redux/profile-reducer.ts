@@ -8,7 +8,8 @@ const initialState = {
         {id: v1(), message: 'Всем привет!', likesCount: 11}
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
@@ -23,6 +24,8 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
             return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
+        case "SET-STATUS":
+            return {...state, status: action.status}
         default:
             return state;
     }
@@ -47,6 +50,12 @@ export const setUserProfile = (profile: ProfileType) => {
         profile: profile
     } as const
 }
+export const setStatus = (status: string) => {
+    return {
+        type: "SET-STATUS",
+        status
+    } as const
+}
 
 // thunks
 
@@ -60,6 +69,18 @@ export const getProfileTC = (userId: string) => (dispatch: Dispatch) => {
         })
     })
 }
+export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId).then(response => {
+        dispatch(setStatus(response.data))
+    })
+}
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    })
+}
 
 // types
 
@@ -67,6 +88,7 @@ export type ProfileActionsType =
     | ReturnType<typeof addPost>
     | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
 export type PostType = {
     id: string
     message: string
@@ -96,4 +118,5 @@ export type ProfileStateType = {
     posts: Array<PostType>
     newPostText: string
     profile: ProfileType | null
+    status: string
 }
