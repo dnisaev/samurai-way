@@ -38,33 +38,39 @@ export const setAuthUserData = (
 
 // thunks
 
-export const getAuthUserDataTC = () => (dispatch: AppDispatch) => {
-    authAPI.me().then(response => {
-        if (response.data.resultCode === 0) {
-            const {id, email, login} = response.data.data
-            dispatch(setAuthUserData(id, email, login, true))
-        }
-    })
+export const getAuthUserDataTC = () => async (dispatch: AppDispatch) => {
+    return await authAPI
+        .me()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                const {id, email, login} = response.data.data
+                dispatch(setAuthUserData(id, email, login, true))
+            }
+        })
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
-    authAPI.login(email, password, rememberMe).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(getAuthUserDataTC())
-        } else {
-            const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Invalid: error form'
-            const action = stopSubmit('login', {_error: message});
-            dispatch(action)
-        }
-    })
+    authAPI
+        .login(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthUserDataTC())
+            } else {
+                const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Invalid: error form'
+                const action = stopSubmit('login', {_error: message});
+                dispatch(action)
+            }
+        })
 }
 
 export const logoutTC = () => (dispatch: AppDispatch) => {
-    authAPI.logout().then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(setAuthUserData(null, null, null, false))
-        }
-    })
+    authAPI
+        .logout()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false))
+            }
+        })
 }
 
 // types

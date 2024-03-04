@@ -19,7 +19,5 @@ export default Preloader;
 const PreloaderWrapper = styled.div`
     display: flex;
     justify-content: center;
-    position: absolute;
-    height: 30vh;
-    width: 50%;
+    width: 100%;
 `

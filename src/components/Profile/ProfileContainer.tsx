@@ -17,8 +17,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         }
         this.props.getProfileTC(userId);
         this.props.getStatusTC(userId);
-
-        console.log(this.props.authorizedUserId);
+        console.log(this.props.authorizedUserId)
     }
 
     render() {

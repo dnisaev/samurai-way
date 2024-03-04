@@ -6,9 +6,10 @@ import {UsersActionsType, usersReducer} from "./users-reducer";
 import {AuthActionsType, authReducer} from "./auth-reducer";
 import {thunk as thunkMiddleware, ThunkDispatch} from "redux-thunk";
 import {FormAction, reducer as formReducer} from 'redux-form';
+import {AppActionsType, appReducer} from "./app-reducer";
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type GlobalActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType | AuthActionsType | FormAction
+export type GlobalActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType | AuthActionsType | AppActionsType | FormAction
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, GlobalActionsType>
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer
 })
 
