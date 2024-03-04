@@ -7,7 +7,6 @@ const initialState = {
         {id: v1(), message: 'Добро пожаловать в мою социальную сеть «Welcome»', likesCount: 15},
         {id: v1(), message: 'Всем привет!', likesCount: 11}
     ],
-    newPostText: '',
     profile: null,
     status: ''
 }
@@ -17,11 +16,8 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
         case "ADD-POST":
             return {
                 ...state,
-                posts: [{id: v1(), message: state.newPostText, likesCount: 0}, ...state.posts],
-                newPostText: ''
+                posts: [{id: v1(), message: action.newPostText, likesCount: 0}, ...state.posts]
             }
-        case "UPDATE-NEW-POST-TEXT":
-            return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-STATUS":
@@ -33,27 +29,19 @@ export const profileReducer = (state: ProfileStateType = initialState, action: P
 
 // actions
 
-export const addPost = () => {
+export const addPost = (newPostText: string) => {
     return {
-        type: "ADD-POST"
-    } as const
-}
-export const updateNewPostText = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
+        type: "ADD-POST", newPostText
     } as const
 }
 export const setUserProfile = (profile: ProfileType) => {
     return {
-        type: "SET-USER-PROFILE",
-        profile: profile
+        type: "SET-USER-PROFILE", profile
     } as const
 }
 export const setStatus = (status: string) => {
     return {
-        type: "SET-STATUS",
-        status
+        type: "SET-STATUS", status
     } as const
 }
 
@@ -86,7 +74,6 @@ export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
 
 export type ProfileActionsType =
     | ReturnType<typeof addPost>
-    | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 export type PostType = {
@@ -116,7 +103,6 @@ export type ProfileType = {
 }
 export type ProfileStateType = {
     posts: Array<PostType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }

@@ -2,38 +2,24 @@ import React from 'react';
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {PostType} from "../../../redux/profile-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
-type MyPostsPropsType = {
-    posts: Array<PostType>
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-}
-
-const MyPosts = ({posts, newPostText, addPost, updateNewPostText}: MyPostsPropsType) => {
+export const MyPosts = ({posts, addPost}: MyPostsPropsType) => {
 
     const postMessagesElements = posts.map((m) => {
         return <Post key={m.id} message={m.message} likesCount={m.likesCount} id={m.id}/>
     });
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    const onPostChange = () => {
-        let text = newPostElement.current?.value;
-        if (text) {
-            updateNewPostText(text);
-        }
+    const onSubmit = (values: AddPostFormType) => {
+        addPost(values.newPostText)
     }
+
     console.log('render: MyPosts')
     return (
         <div className={styles.postsBlock}>
             <h3>Мои посты</h3>
             <div>
-                <div>
-                    <textarea onChange={onPostChange} ref={newPostElement} value={newPostText}/>
-                </div>
-                <div>
-                    <button onClick={addPost}>Отправить</button>
-                </div>
+                <AddPostFormRedux onSubmit={onSubmit}/>
             </div>
             <div className={styles.posts}>
                 {postMessagesElements}
@@ -42,4 +28,25 @@ const MyPosts = ({posts, newPostText, addPost, updateNewPostText}: MyPostsPropsT
     );
 };
 
-export default MyPosts;
+const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component={"textarea"} name={"newPostText"} placeholder={"Введите сообщение"}/>
+            </div>
+            <div>
+                <button>Отправить</button>
+            </div>
+        </form>
+    )
+}
+
+const AddPostFormRedux = reduxForm<AddPostFormType>({form: 'profileAddPostForm'})(AddPostForm)
+
+type AddPostFormType = {
+    newPostText: string
+}
+type MyPostsPropsType = {
+    posts: Array<PostType>
+    addPost: (newPostText: string) => void
+}

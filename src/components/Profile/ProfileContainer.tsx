@@ -20,7 +20,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     render() {
         console.log('render: ProfileContainer')
-
         return (
             <div className={styles.content}>
                 <Profile profile={this.props.profile}
