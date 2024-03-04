@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {AppDispatch} from "./redux-store";
 
 let initialState = {
     id: null,
@@ -11,7 +12,7 @@ let initialState = {
 export const authReducer = (state: AuthResponseType = initialState, action: AuthActionsType) => {
     switch (action.type) {
         case 'SET-AUTH-USER-DATA':
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.payload}
         default:
             return state;
     }
@@ -19,31 +20,53 @@ export const authReducer = (state: AuthResponseType = initialState, action: Auth
 
 // actions
 
-export const setAuthUserData = (id: number, email: string, login: string) => {
+export const setAuthUserData = (
+    id: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean) => {
     return {
         type: "SET-AUTH-USER-DATA",
-        data: {
+        payload: {
             id,
             email,
-            login
+            login,
+            isAuth
         }
     } as const
 }
 
 // thunks
 
-export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
-    authAPI.getAuth().then(response => {
+export const getAuthUserDataTC = () => (dispatch: AppDispatch) => {
+    authAPI.me().then(response => {
         if (response.data.resultCode === 0) {
             const {id, email, login} = response.data.data
-            dispatch(setAuthUserData(id, email, login))
+            dispatch(setAuthUserData(id, email, login, true))
+        }
+    })
+}
+
+export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
+    authAPI.login(email, password, rememberMe).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserDataTC())
+        }
+    })
+}
+
+export const logoutTC = () => (dispatch: AppDispatch) => {
+    authAPI.logout().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false))
         }
     })
 }
 
 // types
 
-export type AuthActionsType = ReturnType<typeof setAuthUserData>
+export type AuthActionsType =
+    | ReturnType<typeof setAuthUserData>
 type AuthResponseType = {
     id: number | null
     email: string | null

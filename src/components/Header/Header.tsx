@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 import logo from "../../assets/images/logo.gif";
 import {NavLink} from "react-router-dom";
 
-export const Header = ({isAuth, login}: HeaderPropsType) => {
+export const Header = ({isAuth, login, logout}: HeaderPropsType) => {
     console.log('render: Header')
     return (
         <header className={styles.header}>
@@ -11,7 +11,11 @@ export const Header = ({isAuth, login}: HeaderPropsType) => {
                 <img src={logo} alt={"logo"}/>
             </a>
             <div className={styles.loginBlock}>
-                <NavLink to={'/login'}>{isAuth ? login : 'Войти'}</NavLink>
+                {
+                    isAuth
+                        ? <div>{login} <button onClick={logout}>Выйти</button></div>
+                        : <NavLink to={'/login'}>Войти</NavLink>
+                }
             </div>
         </header>
     );
@@ -20,4 +24,5 @@ export const Header = ({isAuth, login}: HeaderPropsType) => {
 type HeaderPropsType = {
     isAuth: boolean
     login: string | null
+    logout: () => void
 }

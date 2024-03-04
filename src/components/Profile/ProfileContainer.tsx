@@ -3,9 +3,10 @@ import styles from "./Profile.module.css";
 import Profile from './Profile';
 import {connect} from "react-redux";
 import {getProfileTC, getStatusTC, ProfileType, updateStatusTC} from "../../redux/profile-reducer";
-import {ReducersType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
@@ -30,13 +31,14 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
 }
 
-const mapStateToProps = (state: ReducersType): MapStatePropsType =>
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType =>
     ({
         profile: state.profilePage.profile,
         status: state.profilePage.status
     });
 
 export default compose<React.ComponentType>(
+    withAuthRedirect,
     connect(mapStateToProps, {getProfileTC, getStatusTC, updateStatusTC}),
     withRouter
 )(ProfileContainer)

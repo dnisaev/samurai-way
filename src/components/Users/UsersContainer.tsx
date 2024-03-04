@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {ReducersType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/redux-store";
 import {
     followSuccess, followUserTC,
     getUsersTC,
@@ -11,7 +11,7 @@ import React from "react";
 import Preloader from "../common/Preloader/Preloader";
 import {Users} from "./Users";
 import {compose} from "redux";
-//import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 
@@ -41,7 +41,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
     }
 }
 
-let mapStateToProps = (state: ReducersType): MapStatePropsType => {
+let mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -52,7 +52,7 @@ let mapStateToProps = (state: ReducersType): MapStatePropsType => {
 }
 
 export default compose(
-    //withAuthRedirect,
+    withAuthRedirect,
     connect(mapStateToProps, {
             followSuccess,
             unfollowSuccess,
