@@ -17,6 +17,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         }
         this.props.getProfileTC(userId);
         this.props.getStatusTC(userId);
+
+        console.log(this.props.authorizedUserId);
     }
 
     render() {
@@ -34,7 +36,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType =>
     ({
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.profilePage.profile?.userId,
+        isAuth: state.auth.isAuth
     });
 
 export default compose<React.ComponentType>(
@@ -46,6 +50,9 @@ export default compose<React.ComponentType>(
 type MapStatePropsType = {
     profile: ProfileType | null
     status: string
+    authorizedUserId: number | undefined
+    isAuth: boolean
+
 }
 type MapDispatchPropsType = {
     getProfileTC: (userId: string) => void

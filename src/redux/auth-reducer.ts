@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {AppDispatch} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 let initialState = {
     id: null,
@@ -51,6 +51,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
     authAPI.login(email, password, rememberMe).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(getAuthUserDataTC())
+        } else {
+            const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Invalid: error form'
+            const action = stopSubmit('login', {_error: message});
+            dispatch(action)
         }
     })
 }

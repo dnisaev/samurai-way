@@ -5,10 +5,10 @@ import {sidebarReducer} from "./sidebar-reducer";
 import {UsersActionsType, usersReducer} from "./users-reducer";
 import {AuthActionsType, authReducer} from "./auth-reducer";
 import {thunk as thunkMiddleware, ThunkDispatch} from "redux-thunk";
-import { reducer as formReducer } from 'redux-form';
+import {FormAction, reducer as formReducer} from 'redux-form';
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type GlobalActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType | AuthActionsType
+export type GlobalActionsType = ProfileActionsType | DialogsActionsType | UsersActionsType | AuthActionsType | FormAction
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, GlobalActionsType>
 
 const rootReducer = combineReducers({

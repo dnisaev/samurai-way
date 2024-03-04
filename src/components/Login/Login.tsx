@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {loginTC} from "../../redux/auth-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import styles from "../common/FormsControls/FormsControls.module.css"
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
@@ -13,20 +14,26 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
         <form onSubmit={props.handleSubmit}>
-            <div><Field component={Input}
-                        name={"email"}
-                        placeholder={"Email"}
-                        type={"email"}
-                        validate={[required]}/></div>
-            <div><Field component={Input}
-                        name={"password"}
-                        placeholder={"Password"}
-                        type={"password"}
-                        validate={[required]}/></div>
-            <div><Field component={Input}
-                        name={"rememberMe"}
-                        type={"checkbox"}/>Запомнить меня
+            <div>
+                <Field component={Input}
+                       name={"email"}
+                       placeholder={"Email"}
+                       type={"email"}
+                       validate={[required]}/>
             </div>
+            <div>
+                <Field component={Input}
+                       name={"password"}
+                       placeholder={"Password"}
+                       type={"password"}
+                       validate={[required]}/>
+            </div>
+            <div className={styles.rememberMe}>
+                <Field component={Input}
+                       name={"rememberMe"}
+                       type={"checkbox"}/>Запомнить меня
+            </div>
+            { props.error && <div className={styles.formSummeryError}>{props.error}</div> }
             <div>
                 <button>Войти</button>
             </div>
