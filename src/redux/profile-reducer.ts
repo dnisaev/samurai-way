@@ -8,7 +8,7 @@ const initialState = {
         {id: v1(), message: 'Всем привет!', likesCount: 11}
     ],
     profile: null,
-    status: ''
+    status: '-'
 }
 
 export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
