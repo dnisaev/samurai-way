@@ -1,29 +1,27 @@
 .dialogsWrapper {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+  display: grid;
+  grid-template-columns: 2fr 10fr;
 }
 
 .dialogsItems {
-    padding: 10px;
+  padding: 10px;
 }
 
 .dialogsItems .active {
-    color: white;
+  color: white;
 }
 
 .dialogsItems .dialog {
-
 }
 
 .messagesItems {
-    padding: 10px;
+  padding: 10px;
 }
 
 .messagesItems .message {
-
 }
 
 textarea {
-    max-width: 400px;
-    width: 100%;
+  max-width: 400px;
+  width: 100%;
 }
