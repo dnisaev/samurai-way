@@ -1,14 +1,14 @@
 .descriptionBlock {
-    padding: 20px;
+  padding: 20px;
 }
 
 .wrapper {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 img.avatar {
-    max-width: 150px;
-    height: 100%;
-    border-radius: 50%;
+  max-width: 150px;
+  height: 100%;
+  border-radius: 50%;
 }
