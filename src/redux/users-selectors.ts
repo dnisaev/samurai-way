@@ -23,5 +23,5 @@ export const getFollowingProgress = (state: AppRootStateType) => {
 
 export const getUsers = createSelector(getUsersSelector, (users) => {
     // fake filter
-    return users.filter(u => true)
+    return users.filter(u => u)
 })

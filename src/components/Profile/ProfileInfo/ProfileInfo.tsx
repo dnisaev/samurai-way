@@ -3,7 +3,7 @@ import styles from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/default-avatar.svg";
 import {ProfileType} from "../../../redux/profile-reducer";
-import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoType = {
     profile: ProfileType | null
@@ -26,7 +26,7 @@ const ProfileInfo = ({profile, status, updateStatusTC}: ProfileInfoType) => {
                 <div className={styles.descriptionBlock}>
                     <h2>{profile.fullName}</h2>
                     <p>{profile.lookingForAJobDescription}</p>
-                    <ProfileStatus status={status} updateStatusTC={updateStatusTC}/>
+                    <ProfileStatusWithHooks status={status} updateStatusTC={updateStatusTC}/>
                 </div>
             </div>
         </div>
