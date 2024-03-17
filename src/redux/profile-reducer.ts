@@ -61,27 +61,23 @@ export const deletePost = (postId: string) => {
 
 // thunks
 
-export const getProfileTC = (userId: string) => (dispatch: Dispatch) => {
-  usersAPI.getUsers().then((response) => {
-    if (response.data.items[0].id < +userId) {
-      userId = "30560";
-    }
-    profileAPI.getProfile(userId).then((response) => {
-      dispatch(setUserProfile(response.data));
-    });
-  });
+export const getProfileTC = (userId: string) => async (dispatch: Dispatch) => {
+  const getUsersResponse = await usersAPI.getUsers();
+  if (getUsersResponse.data.items[0].id < +userId) {
+    userId = "30560";
+  }
+  const getProfileResponse = await profileAPI.getProfile(userId);
+  dispatch(setUserProfile(getProfileResponse.data));
 };
-export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
-  profileAPI.getStatus(userId).then((response) => {
-    dispatch(setStatus(response.data));
-  });
+export const getStatusTC = (userId: string) => async (dispatch: Dispatch) => {
+  const response = await profileAPI.getStatus(userId);
+  dispatch(setStatus(response.data));
 };
-export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
-  profileAPI.updateStatus(status).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(setStatus(status));
-    }
-  });
+export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
+  const response = await profileAPI.updateStatus(status);
+  if (response.data.resultCode === 0) {
+    dispatch(setStatus(status));
+  }
 };
 
 // types
