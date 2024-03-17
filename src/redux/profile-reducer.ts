@@ -25,6 +25,8 @@ export const profileReducer = (
       return { ...state, profile: action.profile };
     case "SET-STATUS":
       return { ...state, status: action.status };
+    case "DELETE-POST":
+      return { ...state, posts: state.posts.filter((post) => post.id !== action.postId) };
     default:
       return state;
   }
@@ -48,6 +50,12 @@ export const setStatus = (status: string) => {
   return {
     type: "SET-STATUS",
     status,
+  } as const;
+};
+export const deletePost = (postId: string) => {
+  return {
+    type: "DELETE-POST",
+    postId,
   } as const;
 };
 
@@ -81,7 +89,8 @@ export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
 export type ProfileActionsType =
   | ReturnType<typeof addPost>
   | ReturnType<typeof setUserProfile>
-  | ReturnType<typeof setStatus>;
+  | ReturnType<typeof setStatus>
+  | ReturnType<typeof deletePost>;
 export type PostType = {
   id: string;
   message: string;
