@@ -12,7 +12,6 @@ type ProfileInfoType = {
 };
 
 const ProfileInfo = ({ profile, status, updateStatusTC }: ProfileInfoType) => {
-  console.log("render: ProfileInfo");
   if (!profile) {
     return <Preloader />;
   }

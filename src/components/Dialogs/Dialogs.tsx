@@ -22,8 +22,6 @@ export const Dialogs = ({ state, addMessage }: DialogsPropsType) => {
 
   //if (!isAuth) return <Redirect to={"/login"}/>
 
-  console.log("render: Dialogs");
-
   return (
     <div className={styles.dialogsWrapper}>
       <div className={styles.dialogsItems}>{dialogsElements}</div>
@@ -39,8 +37,6 @@ export const Dialogs = ({ state, addMessage }: DialogsPropsType) => {
 
 const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) => {
   const maxLength = maxLengthCreator(10);
-
-  console.log("render: AddMessageForm");
 
   return (
     <form onSubmit={props.handleSubmit}>

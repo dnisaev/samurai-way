@@ -4,7 +4,6 @@ import logo from "../../assets/images/logo.gif";
 import { NavLink } from "react-router-dom";
 
 export const Header = ({ isAuth, login, logout }: HeaderPropsType) => {
-  console.log("render: Header");
   return (
     <header className={styles.header}>
       <a href={"/samurai-way"}>

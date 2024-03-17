@@ -6,7 +6,6 @@ import { Header } from "./Header";
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
   render() {
-    console.log("render: HeaderContainer");
     return <Header login={this.props.login} logout={this.props.logoutTC} isAuth={this.props.isAuth} />;
   }
 }

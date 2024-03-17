@@ -15,7 +15,6 @@ export const MyPosts = React.memo(({ posts, addPost }: MyPostsPropsType) => {
     addPost(values.newPostText);
   };
 
-  console.log("render: MyPosts");
   return (
     <div className={styles.postsBlock}>
       <h3>Мои посты</h3>

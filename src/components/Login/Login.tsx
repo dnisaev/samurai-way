@@ -9,8 +9,6 @@ import { Redirect } from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css";
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-  console.log("render: LoginForm");
-
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -36,8 +34,6 @@ const LoginReduxForm = reduxForm<FormDataType>({
 })(LoginForm);
 
 const Login = ({ loginTC, isAuth }: LoginPropsType) => {
-  console.log("render: Login");
-
   const onSubmit = (formData: FormDataType) => {
     const { email, password, rememberMe } = formData;
     loginTC(email, password, rememberMe);

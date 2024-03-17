@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { DialogType } from "../../../redux/dialogs-reducer";
 
 const Dialog = ({ name, id }: DialogType) => {
-  console.log("render: Dialog");
   return (
     <div className={styles.dialog}>
       <NavLink to={`/dialogs/${id}`} activeClassName={styles.active}>

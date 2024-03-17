@@ -100,7 +100,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
 const followUnfollowFlow = async (dispatch: Dispatch, userId: string, apiMethod: any, actionCreator: any) => {
   dispatch(toggleFollowingProgress(true, userId));
   const response = await apiMethod(userId);
-  console.log(response);
+
   if (response.data.resultCode === 0) {
     dispatch(actionCreator(userId));
   }

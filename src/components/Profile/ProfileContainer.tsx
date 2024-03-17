@@ -8,7 +8,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType> {
+class ProfileContainer extends React.PureComponent<ProfileContainerPropsType> {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
@@ -16,11 +16,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     }
     this.props.getProfileTC(userId);
     this.props.getStatusTC(userId);
-    console.log(this.props.authorizedUserId);
   }
 
   render() {
-    console.log("render: ProfileContainer");
     return (
       <div className={styles.content}>
         <Profile profile={this.props.profile} status={this.props.status} updateStatusTC={this.props.updateStatusTC} />

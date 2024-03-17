@@ -11,7 +11,6 @@ type ProfilePropsType = {
 };
 
 const Profile = ({ profile, status, updateStatusTC }: ProfilePropsType) => {
-  console.log("render: Profile");
   return (
     <div className={styles.content}>
       <ProfileInfo profile={profile} status={status} updateStatusTC={updateStatusTC} />
