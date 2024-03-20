@@ -6,6 +6,8 @@ import { User } from "./User";
 export const Users = ({
   users,
   currentPage,
+  pageSize,
+  totalUsersCount,
   onClickPageChanges,
   followingProgress,
   followUser,
@@ -13,7 +15,11 @@ export const Users = ({
 }: UsersPropsType) => {
   return (
     <div>
-      <Paginator currentPage={currentPage} onClickPageChanges={onClickPageChanges} />
+      <Paginator
+        currentPage={currentPage}
+        onClickPageChanges={onClickPageChanges}
+        totalItemsCount={totalUsersCount}
+        pageSize={pageSize}/>
       {users.map((user) => (
         <User
           key={user.id}
@@ -30,6 +36,8 @@ export const Users = ({
 type UsersPropsType = {
   users: Array<UserType>;
   currentPage: number;
+  pageSize: number;
+  totalUsersCount: number;
   onClickPageChanges: (number: number) => void;
   followingProgress: Array<string>;
   followUser: (userId: string) => void;

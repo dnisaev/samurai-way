@@ -17,8 +17,8 @@ import {
   getCurrentPage,
   getFollowingProgress,
   getIsFetching,
-  getPageSize,
-  getUsers,
+  getPageSize, getTotalUsersCount,
+  getUsers
 } from "../../redux/users-selectors";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
@@ -38,6 +38,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
         <Users
           users={this.props.users}
           currentPage={this.props.currentPage}
+          totalUsersCount={this.props.totalUsersCount}
+          pageSize={this.props.pageSize}
           onClickPageChanges={this.onClickPageChanges}
           followingProgress={this.props.followingProgress}
           followUser={this.props.followUserTC}
@@ -52,6 +54,7 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
     isFetching: getIsFetching(state),
     followingProgress: getFollowingProgress(state),
@@ -71,18 +74,19 @@ export default compose(
 )(UsersContainer);
 
 type MapStatePropsType = {
-  users: Array<UserType>;
-  pageSize: number;
-  currentPage: number;
-  isFetching: boolean;
-  followingProgress: Array<string>;
+  users: Array<UserType>
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  isFetching: boolean
+  followingProgress: Array<string>
 };
 type MapDispatchPropsType = {
-  followSuccess: (userId: string) => void;
-  unfollowSuccess: (userId: string) => void;
-  toggleFollowingProgress: (isFetching: boolean, userId: string) => void;
-  getUsersTC: (currentPage: number, pageSize: number) => void;
-  followUserTC: (userId: string) => void;
-  unfollowUserTC: (userId: string) => void;
+  followSuccess: (userId: string) => void
+  unfollowSuccess: (userId: string) => void
+  toggleFollowingProgress: (isFetching: boolean, userId: string) => void
+  getUsersTC: (currentPage: number, pageSize: number) => void
+  followUserTC: (userId: string) => void
+  unfollowUserTC: (userId: string) => void
 };
 type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType;

@@ -9,6 +9,10 @@ export const getPageSize = (state: AppRootStateType) => {
   return state.usersPage.pageSize;
 };
 
+export const getTotalUsersCount = (state: AppRootStateType) => {
+  return state.usersPage.totalUsersCount;
+};
+
 export const getCurrentPage = (state: AppRootStateType) => {
   return state.usersPage.currentPage;
 };
