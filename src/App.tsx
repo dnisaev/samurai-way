@@ -2,9 +2,6 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
 import NavBar from "./components/Navbar/Navbar";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import { connect, Provider } from "react-redux";
@@ -12,7 +9,11 @@ import { compose } from "redux";
 import { initializeAppTC } from "./redux/app-reducer";
 import { AppRootStateType, store } from "./redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
+import { withSuspense } from "./hoc/withSuspense";
 
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"));
 
 class App extends React.Component<AppPropsType> {
   componentDidMount() {
@@ -27,9 +28,9 @@ class App extends React.Component<AppPropsType> {
         <HeaderContainer />
         <NavBar />
         <div className={"app-wrapper-content"}>
-          <Route path={"/profile/:userId?"} render={() => <ProfileContainer />} />
-          <Route path={"/dialogs"} render={() => <DialogsContainer />} />
-          <Route path={"/users"} render={() => <UsersContainer />} />
+          <Route path={"/profile/:userId?"} render={withSuspense(ProfileContainer)} />
+          <Route path={"/dialogs"} render={withSuspense(DialogsContainer)} />
+          <Route path={"/users"} render={withSuspense(UsersContainer)} />
           <Route path={"/login"} render={() => <Login />} />
         </div>
       </div>
@@ -43,7 +44,7 @@ const mapStateToProps = (state: AppRootStateType) => {
   };
 };
 
-const AppContainer= compose<React.ComponentType>(connect(mapStateToProps, { initializeAppTC }), withRouter)(App);
+const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, { initializeAppTC }), withRouter)(App);
 
 export const SamuraiApp = () => {
   return (
@@ -52,8 +53,8 @@ export const SamuraiApp = () => {
         <AppContainer />
       </Provider>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 type MapStatePropsType = {
   initialized: boolean;
