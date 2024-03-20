@@ -20,6 +20,7 @@ import {
   getPageSize,
   getUsers,
 } from "../../redux/users-selectors";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
   componentDidMount() {
@@ -58,7 +59,7 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 };
 
 export default compose(
-  // withAuthRedirect,
+  withAuthRedirect,
   connect(mapStateToProps, {
     followSuccess,
     unfollowSuccess,
