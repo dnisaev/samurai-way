@@ -134,17 +134,19 @@ export type ProfilePhotosType = {
   small: string;
   large: string;
 }
+export type ProfileContactsType = {
+  [key: string]: string
+  facebook: string;
+  website: string;
+  vk: string;
+  twitter: string;
+  instagram: string;
+  youtube: string;
+  mainLink: string;
+}
 export type ProfileType = {
   aboutMe: string;
-  contacts: {
-    facebook: string;
-    website: string;
-    vk: string;
-    twitter: string;
-    instagram: string;
-    youtube: string;
-    mainLink: string;
-  };
+  contacts: ProfileContactsType
   lookingForAJob?: boolean;
   lookingForAJobDescription?: string;
   fullName: string;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import styles from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
@@ -17,14 +17,13 @@ const Profile = ({ isOwner, profile, status, updateStatusTC, savePhotoTC }: Prof
 
   if (!profile) return <Preloader/>
 
-  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.files?.length && savePhotoTC(e.target.files[0])
-  }
-
   return (
     <div className={styles.content}>
-      <ProfileInfo profile={profile} status={status} updateStatusTC={updateStatusTC} />
-      { isOwner && <input type={"file"} onChange={onMainPhotoSelected} /> }
+      <ProfileInfo profile={profile}
+                   status={status}
+                   updateStatusTC={updateStatusTC}
+                   savePhotoTC={savePhotoTC}
+                   isOwner={isOwner}/>
       <MyPostsContainer />
     </div>
   );

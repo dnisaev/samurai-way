@@ -1,5 +1,9 @@
 .descriptionBlock {
   padding: 20px;
+  line-height: 0.5;
+}
+.descriptionBlock p {
+  font-size: small;
 }
 
 .wrapper {
@@ -8,7 +12,18 @@
 }
 
 img.avatar {
-  max-width: 150px;
+  max-width: 175px;
   height: 100%;
   border-radius: 50%;
+}
+
+.photoWrapper {
+  padding: 10px 0;
+  display: grid;
+  justify-items: center;
+}
+
+.photoWrapper input {
+  margin: 10px 0;
+  font-size: xx-small;
 }
