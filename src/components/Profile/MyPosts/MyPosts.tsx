@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import { PostType } from "../../../redux/profile-reducer";
+import { PostType, ProfilePhotosType } from "../../../redux/profile-reducer";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../../utils/validators/validators";
 import { Textarea } from "../../common/FormsControls/FormsControls";
 
-export const MyPosts = React.memo(({ posts, addPost }: MyPostsPropsType) => {
+export const MyPosts = React.memo(({ posts, addPost, photos }: MyPostsPropsType) => {
   const postMessagesElements = posts.map((m) => {
-    return <Post key={m.id} message={m.message} likesCount={m.likesCount} id={m.id} />;
+    return <Post key={m.id} message={m.message} likesCount={m.likesCount} id={m.id} photos={photos}/>;
   });
 
   const onSubmit = (values: AddPostFormType) => {
@@ -53,5 +53,6 @@ type AddPostFormType = {
 };
 type MyPostsPropsType = {
   posts: Array<PostType>;
+  photos: ProfilePhotosType;
   addPost: (newPostText: string) => void;
 };

@@ -4,13 +4,31 @@ import { v1 } from "uuid";
 test("length of posts should be incremented", () => {
   const state = {
     posts: [
-      { id: v1(), message: "Добро пожаловать в мою социальную сеть «Welcome»", likesCount: 15 },
-      { id: v1(), message: "Всем привет!", likesCount: 11 },
+      { id: v1(), message: "Добро пожаловать в мою социальную сеть «Welcome»", likesCount: 15, photos: {small: '', large: ''} },
+      { id: v1(), message: "Всем привет!", likesCount: 11, photos: {small: '', large: ''} },
     ],
-    profile: null,
+    profile: {
+      aboutMe: '',
+      contacts: {
+        facebook: '',
+        website: '',
+        vk: '',
+        twitter: '',
+        instagram: '',
+        youtube: '',
+        mainLink: '',
+      },
+      lookingForAJob: true,
+      lookingForAJobDescription: '',
+      fullName: '',
+      userId: 30560,
+      photos: {
+        small: '',
+        large: '',
+      }
+    },
     status: "-",
   };
-
   const action = addPost("test newPostText");
 
   const newState = profileReducer(state, action);
@@ -21,10 +39,29 @@ test("length of posts should be incremented", () => {
 test("message of new post should be correct", () => {
   const state = {
     posts: [
-      { id: v1(), message: "Добро пожаловать в мою социальную сеть «Welcome»", likesCount: 15 },
-      { id: v1(), message: "Всем привет!", likesCount: 11 },
+      { id: v1(), message: "Добро пожаловать в мою социальную сеть «Welcome»", likesCount: 15, photos: {small: '', large: ''} },
+      { id: v1(), message: "Всем привет!", likesCount: 11, photos: {small: '', large: ''} },
     ],
-    profile: null,
+    profile: {
+      aboutMe: '',
+      contacts: {
+        facebook: '',
+        website: '',
+        vk: '',
+        twitter: '',
+        instagram: '',
+        youtube: '',
+        mainLink: '',
+      },
+      lookingForAJob: true,
+      lookingForAJobDescription: '',
+      fullName: '',
+      userId: 30560,
+      photos: {
+        small: '',
+        large: '',
+      }
+    },
     status: "-",
   };
 
@@ -38,11 +75,30 @@ test("message of new post should be correct", () => {
 test("after deleting length of messages should be decrement", () => {
   const state = {
     posts: [
-      { id: v1(), message: "Добро пожаловать в мою социальную сеть «Welcome»", likesCount: 15 },
-      { id: v1(), message: "Всем привет!", likesCount: 11 },
-      { id: v1(), message: "test", likesCount: 0 },
+      { id: v1(), message: "Добро пожаловать в мою социальную сеть «Welcome»", likesCount: 15, photos: {small: '', large: ''} },
+      { id: v1(), message: "Всем привет!", likesCount: 11, photos: {small: '', large: ''} },
+      { id: v1(), message: "test", likesCount: 0, photos: {small: '', large: ''} },
     ],
-    profile: null,
+    profile: {
+      aboutMe: '',
+      contacts: {
+        facebook: '',
+        website: '',
+        vk: '',
+        twitter: '',
+        instagram: '',
+        youtube: '',
+        mainLink: '',
+      },
+      lookingForAJob: true,
+      lookingForAJobDescription: '',
+      fullName: '',
+      userId: 30560,
+      photos: {
+        small: '',
+        large: '',
+      }
+    },
     status: "-",
   };
 

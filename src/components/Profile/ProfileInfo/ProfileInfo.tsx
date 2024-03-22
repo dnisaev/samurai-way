@@ -6,21 +6,20 @@ import { ProfileType } from "../../../redux/profile-reducer";
 import { ProfileStatusWithHooks } from "./ProfileStatusWithHooks";
 
 type ProfileInfoType = {
-  profile: ProfileType | null;
+  profile: ProfileType;
   status: string;
   updateStatusTC: (status: string) => void;
 };
 
 const ProfileInfo = ({ profile, status, updateStatusTC }: ProfileInfoType) => {
-  if (!profile) {
-    return <Preloader />;
-  }
+  if (!profile) return <Preloader />;
+
   return (
     <div className={styles.content}>
       <div className={styles.wrapper}>
         <img
           className={styles.avatar}
-          src={profile.photos?.large ? profile.photos.large : defaultAvatar}
+          src={profile.photos?.large || defaultAvatar}
           alt={"avatar-profile"}
         />
         <div className={styles.descriptionBlock}>
