@@ -7,7 +7,7 @@ const FormControl = ({ input, meta, children, ...props }: any) => {
 
   return (
     <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
-      <div>{children}</div>
+      <>{children}</>
       {hasError && <span>{meta.error}</span>}
     </div>
   );
@@ -33,9 +33,9 @@ export const Input = (props: any) => {
 
 export const createField = (placeholder: any, name: any, validators: any, component: any, props = {}, text = "") => {
   return (
-    <div>
+    <>
       <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props} />
       {text}
-    </div>
+    </>
   );
 };

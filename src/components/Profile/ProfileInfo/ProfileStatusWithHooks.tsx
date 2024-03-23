@@ -30,7 +30,9 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
     <>
       {!editMode && (
         <div>
-          <p onDoubleClick={activateEditMode}><strong>Статус</strong>: {status}</p>
+          <div onDoubleClick={activateEditMode}>
+            <strong>Статус</strong>: {status}
+          </div>
         </div>
       )}
       {editMode && (

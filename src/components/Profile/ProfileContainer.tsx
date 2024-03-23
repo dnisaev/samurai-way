@@ -2,7 +2,14 @@ import React from "react";
 import styles from "./Profile.module.css";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { getProfileTC, getStatusTC, ProfileType, savePhotoTC, updateStatusTC } from "../../redux/profile-reducer";
+import {
+  getProfileTC,
+  getStatusTC,
+  ProfileType,
+  savePhotoTC,
+  saveProfileTC,
+  updateStatusTC,
+} from "../../redux/profile-reducer";
 import { AppRootStateType } from "../../redux/redux-store";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { compose } from "redux";
@@ -37,6 +44,7 @@ class ProfileContainer extends React.PureComponent<ProfileContainerPropsType> {
           status={this.props.status}
           updateStatusTC={this.props.updateStatusTC}
           savePhotoTC={this.props.savePhotoTC}
+          saveProfileTC={this.props.saveProfileTC}
         />
       </div>
     );
@@ -53,7 +61,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
 
 export default compose<React.ComponentType>(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfileTC, getStatusTC, updateStatusTC, savePhotoTC }),
+  connect(mapStateToProps, { getProfileTC, getStatusTC, updateStatusTC, savePhotoTC, saveProfileTC }),
   withRouter,
 )(ProfileContainer);
 
@@ -69,6 +77,7 @@ type MapDispatchPropsType = {
   getStatusTC: (userId: string) => void;
   updateStatusTC: (status: string) => void;
   savePhotoTC: (photo: File) => void;
+  saveProfileTC: (profile: any) => void;
 };
 type PathParamsType = {
   userId: string;

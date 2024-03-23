@@ -34,6 +34,9 @@ export const profileAPI = {
     formData.append("formData", photo);
     return instance.put(`/profile/photo/`, formData, { headers: { "Content-Type": "multipart/form-data" } });
   },
+  saveProfile(profile: any) {
+    return instance.put(`/profile/`, profile);
+  },
 };
 export const authAPI = {
   me() {

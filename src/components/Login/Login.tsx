@@ -8,9 +8,9 @@ import { AppRootStateType } from "../../redux/redux-store";
 import { Redirect } from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css";
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormDataType>> = ({ handleSubmit, error }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <Field component={Input} name={"email"} placeholder={"Email"} type={"email"} validate={[required]} />
       </div>
@@ -21,7 +21,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         <Field component={Input} name={"rememberMe"} type={"checkbox"} />
         Запомнить меня
       </div>
-      {props.error && <div className={styles.formSummeryError}>{props.error}</div>}
+      {error && <div className={styles.formSummeryError}>{error}</div>}
       <div>
         <button>Войти</button>
       </div>
@@ -29,12 +29,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
   );
 };
 
-const LoginReduxForm = reduxForm<FormDataType>({
+const LoginReduxForm = reduxForm<LoginFormDataType>({
   form: "login",
 })(LoginForm);
 
 const Login = ({ loginTC, isAuth }: LoginPropsType) => {
-  const onSubmit = (formData: FormDataType) => {
+  const onSubmit = (formData: LoginFormDataType) => {
     const { email, password, rememberMe } = formData;
     loginTC(email, password, rememberMe);
   };
@@ -57,7 +57,7 @@ const mapStateToProps = (state: AppRootStateType) => {
 
 export default connect(mapStateToProps, { loginTC })(Login);
 
-type FormDataType = {
+type LoginFormDataType = {
   email: string;
   password: string;
   rememberMe: boolean;

@@ -1,36 +1,50 @@
 import React from "react";
-import { createField, Input } from "../../common/FormsControls/FormsControls";
+import { createField, Input, Textarea } from "../../common/FormsControls/FormsControls";
 import { reduxForm } from "redux-form";
+import styles from "./ProfileInfo.module.css";
 
-const ProfileDataForm = (props: any) => {
+const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
   return (
-    <form>
-      <button onClick={()=>{}}>Сохранить</button>
-      <p>
-        <strong>Полное имя</strong>: {createField("Full name", "fullName", [], Input)}
-      </p>
-      <p>
-        <strong>Ищу работу</strong>:
-      </p>
-      <p>
-        <strong>Навыки</strong>:
-      </p>
-      <p>
-        <strong>Обо мне</strong>:
-      </p>
-      {/*<div>*/}
-      {/*  <p>*/}
-      {/*    <strong>Контакты</strong>:{" "}*/}
-      {/*    {Object.keys(profile.contacts).map((key) => {*/}
-      {/*      return profile.contacts[key] ?*/}
-      {/*        <Contacts key={key} contactTitle={key} contactValue={profile.contacts[key]} /> : '';*/}
-      {/*    })}*/}
-      {/*  </p>*/}
-      {/*</div>*/}
+    <form onSubmit={handleSubmit} className={styles.profileDataFormBlock}>
+      <button>Сохранить</button>
+      {error && <div className={styles.formSummeryError}>{error}</div>}
+      <div>
+        <strong>Полное имя</strong>: {createField("Введите имя", "fullName", [], Input)}
+      </div>
+      <div>
+        <strong>Ищу работу</strong>: {createField("", "lookingForAJob", [], Input, { type: "checkbox" })}
+      </div>
+      <div>
+        <strong>Навыки</strong>: {createField("Укажите навыки", "lookingForAJobDescription", [], Textarea)}
+      </div>
+      <div>
+        <strong>Обо мне</strong>: {createField("Опишите себя", "aboutMe", [], Textarea)}
+      </div>
+      <>
+        <strong>Контакты</strong>:{" "}
+        {Object.keys(profile.contacts).map((key) => {
+          return (
+            <div key={key}>
+              {key}: {createField(key, `contacts.${key}`, [], Input)}
+            </div>
+          );
+        })}
+      </>
     </form>
   );
 };
 
-const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile'})(ProfileDataForm)
+const ProfileDataReduxForm: any = reduxForm<any>({ form: "edit-profile", enableReinitialize: true })(ProfileDataForm);
 
-export default ProfileDataFormReduxForm
+export default ProfileDataReduxForm;
+
+// export type ProfileDataFormPropsType = {
+//   profile: ProfileType
+// }
+//
+// export type ProfileFormDataType = {
+//   fullName: string;
+//   lookingForAJob: boolean;
+//   lookingForAJobDescription: string;
+//   aboutMe: string;
+// };

@@ -4,7 +4,8 @@ import Preloader from "../../common/Preloader/Preloader";
 import defaultAvatar from "../../../assets/images/default-avatar.svg";
 import { ProfileType } from "../../../redux/profile-reducer";
 import { ProfileStatusWithHooks } from "./ProfileStatusWithHooks";
-import ProfileDataFormReduxForm from "./ProfileDataForm";
+import ProfileDataReduxForm from "./ProfileDataForm";
+import { ProfileData } from "./ProfileData";
 
 type ProfileInfoType = {
   isOwner: boolean | null;
@@ -12,14 +13,23 @@ type ProfileInfoType = {
   status: string;
   updateStatusTC: (status: string) => void;
   savePhotoTC: (photo: File) => void;
+  saveProfileTC: (profile: any) => void;
 };
 
-const ProfileInfo = ({ isOwner, profile, status, updateStatusTC, savePhotoTC }: ProfileInfoType) => {
-
+const ProfileInfo = ({ isOwner, profile, status, updateStatusTC, savePhotoTC, saveProfileTC }: ProfileInfoType) => {
   const [editMode, setEditMode] = useState(false);
 
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.files?.length && savePhotoTC(e.target.files[0]);
+  };
+
+  const onSubmit = async (formData: any) => {
+    try {
+      await saveProfileTC(formData);
+      deactivateEditMode();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const activateEditMode = () => {
@@ -28,7 +38,7 @@ const ProfileInfo = ({ isOwner, profile, status, updateStatusTC, savePhotoTC }: 
 
   const deactivateEditMode = () => {
     setEditMode(false);
-  }
+  };
 
   if (!profile) return <Preloader />;
 
@@ -40,59 +50,16 @@ const ProfileInfo = ({ isOwner, profile, status, updateStatusTC, savePhotoTC }: 
           {isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
         </div>
         <div className={styles.descriptionBlock}>
-          {editMode
-            ? <ProfileDataFormReduxForm/>
-            : <ProfileData
-              profile={profile}
-              isOwner={isOwner}
-              activateEditMode={activateEditMode}
-              deactivateEditMode={deactivateEditMode}/>}
+          {editMode ? (
+            <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
+          ) : (
+            <ProfileData profile={profile} isOwner={isOwner} activateEditMode={activateEditMode} />
+          )}
           <ProfileStatusWithHooks status={status} updateStatusTC={updateStatusTC} />
         </div>
       </div>
     </div>
   );
-};
-
-const ProfileData = ({ profile, isOwner, activateEditMode, deactivateEditMode }: any) => {
-  return (
-    <div>
-      {isOwner && <button onClick={activateEditMode} onBlur={deactivateEditMode}>Редактировать</button>}
-      <h2>{profile.fullName}</h2>
-      <p>
-        <strong>Ищу работу</strong>: {profile.lookingForAJob ? "Да" : "Нет"}
-      </p>
-      <p>
-        <strong>Навыки</strong>: {profile.lookingForAJobDescription}
-      </p>
-      <p>
-        <strong>Обо мне</strong>: {profile.lookingForAJobDescription}
-      </p>
-      <div>
-        <p>
-          <strong>Контакты</strong>:{" "}
-          {Object.keys(profile.contacts).map((key) => {
-            return profile.contacts[key] ? <Contacts key={key} contactTitle={key} contactValue={profile.contacts[key]} /> : '';
-          })}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-const Contacts = ({ contactTitle, contactValue }: ContactsPropsType) => {
-  return (
-    { contactValue } && (
-      <span>
-        <b>{contactTitle}</b>: {contactValue}
-      </span>
-    )
-  );
-};
-
-type ContactsPropsType = {
-  contactTitle: string;
-  contactValue: string;
 };
 
 export default ProfileInfo;

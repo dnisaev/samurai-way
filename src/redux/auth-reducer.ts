@@ -46,7 +46,7 @@ export const getAuthUserDataTC = () => async (dispatch: AppDispatch) => {
 export const loginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: AppDispatch) => {
   const response = await authAPI.login(email, password, rememberMe);
   if (response.data.resultCode === 0) {
-    dispatch(getAuthUserDataTC());
+    await dispatch(getAuthUserDataTC());
   } else {
     const message = response.data.messages.length > 0 ? response.data.messages[0] : "Invalid: error form";
     const action = stopSubmit("login", { _error: message });

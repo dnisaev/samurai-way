@@ -6,24 +6,27 @@ import { ProfileType } from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 
 type ProfilePropsType = {
-  isOwner: boolean | null
-  profile: ProfileType
-  status: string
-  updateStatusTC: (status: string) => void
-  savePhotoTC: (photo: File) => void
+  isOwner: boolean | null;
+  profile: ProfileType;
+  status: string;
+  updateStatusTC: (status: string) => void;
+  savePhotoTC: (photo: File) => void;
+  saveProfileTC: (profile: any) => void;
 };
 
-const Profile = ({ isOwner, profile, status, updateStatusTC, savePhotoTC }: ProfilePropsType) => {
-
-  if (!profile) return <Preloader/>
+const Profile = ({ isOwner, profile, status, updateStatusTC, savePhotoTC, saveProfileTC }: ProfilePropsType) => {
+  if (!profile) return <Preloader />;
 
   return (
     <div className={styles.content}>
-      <ProfileInfo profile={profile}
-                   status={status}
-                   updateStatusTC={updateStatusTC}
-                   savePhotoTC={savePhotoTC}
-                   isOwner={isOwner}/>
+      <ProfileInfo
+        profile={profile}
+        status={status}
+        updateStatusTC={updateStatusTC}
+        savePhotoTC={savePhotoTC}
+        saveProfileTC={saveProfileTC}
+        isOwner={isOwner}
+      />
       <MyPostsContainer />
     </div>
   );
