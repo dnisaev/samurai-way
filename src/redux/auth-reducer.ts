@@ -1,4 +1,4 @@
-import { authAPI } from "../api/api";
+import { authAPI, securityAPI } from "../api/api";
 import { AppDispatch } from "./redux-store";
 import { stopSubmit } from "redux-form";
 
@@ -7,11 +7,13 @@ let initialState = {
   email: null,
   login: null,
   isAuth: false,
+  captchaUrl: null,
 };
 
 export const authReducer = (state: AuthResponseType = initialState, action: AuthActionsType) => {
   switch (action.type) {
     case "SET-AUTH-USER-DATA":
+    case "GET-CAPTCHA-URL-SUCCESS":
       return { ...state, ...action.payload };
     default:
       return state;
@@ -32,6 +34,15 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
   } as const;
 };
 
+export const getCaptchaUrlSuccess = (captchaUrl: string) => {
+  return {
+    type: "GET-CAPTCHA-URL-SUCCESS",
+    payload: {
+      captchaUrl,
+    },
+  } as const;
+};
+
 // thunks
 
 export const getAuthUserDataTC = () => async (dispatch: AppDispatch) => {
@@ -43,16 +54,21 @@ export const getAuthUserDataTC = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: AppDispatch) => {
-  const response = await authAPI.login(email, password, rememberMe);
-  if (response.data.resultCode === 0) {
-    await dispatch(getAuthUserDataTC());
-  } else {
-    const message = response.data.messages.length > 0 ? response.data.messages[0] : "Invalid: error form";
-    const action = stopSubmit("login", { _error: message });
-    dispatch(action);
-  }
-};
+export const loginTC =
+  (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: AppDispatch) => {
+    const response = await authAPI.login(email, password, rememberMe, captcha);
+
+    if (response.data.resultCode === 0) {
+      await dispatch(getAuthUserDataTC());
+    } else {
+      if (response.data.resultCode === 10) {
+        await dispatch(getCaptchaUrlTC());
+      }
+      const message = response.data.messages.length > 0 ? response.data.messages[0] : "Invalid: error form";
+      const action = stopSubmit("login", { _error: message });
+      dispatch(action);
+    }
+  };
 
 export const logoutTC = () => async (dispatch: AppDispatch) => {
   const response = await authAPI.logout();
@@ -61,12 +77,19 @@ export const logoutTC = () => async (dispatch: AppDispatch) => {
   }
 };
 
+export const getCaptchaUrlTC = () => async (dispatch: AppDispatch) => {
+  const response = await securityAPI.getCaptcha();
+  const captchaUrl = response.data.url;
+  dispatch(getCaptchaUrlSuccess(captchaUrl));
+};
+
 // types
 
-export type AuthActionsType = ReturnType<typeof setAuthUserData>;
+export type AuthActionsType = ReturnType<typeof setAuthUserData> | ReturnType<typeof getCaptchaUrlSuccess>;
 type AuthResponseType = {
   id: number | null;
   email: string | null;
   login: string | null;
   isAuth: boolean;
+  captchaUrl: string | null;
 };

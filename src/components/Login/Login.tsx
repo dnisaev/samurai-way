@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
-import { Input } from "../common/FormsControls/FormsControls";
+import { createField, Input } from "../common/FormsControls/FormsControls";
 import { required } from "../../utils/validators/validators";
 import { connect } from "react-redux";
 import { loginTC } from "../../redux/auth-reducer";
@@ -8,7 +8,11 @@ import { AppRootStateType } from "../../redux/redux-store";
 import { Redirect } from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css";
 
-const LoginForm: React.FC<InjectedFormProps<LoginFormDataType>> = ({ handleSubmit, error }) => {
+const LoginForm: React.FC<
+  InjectedFormProps<LoginFormDataType, { captchaUrl: string | null }> & {
+    captchaUrl: string | null;
+  }
+> = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -21,6 +25,8 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType>> = ({ handleSubmi
         <Field component={Input} name={"rememberMe"} type={"checkbox"} />
         Запомнить меня
       </div>
+      {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
+      {captchaUrl && createField("Введите символы с картинки", "captcha", [required], Input, {})}
       {error && <div className={styles.formSummeryError}>{error}</div>}
       <div>
         <button>Войти</button>
@@ -29,28 +35,29 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType>> = ({ handleSubmi
   );
 };
 
-const LoginReduxForm = reduxForm<LoginFormDataType>({
+const LoginReduxForm = reduxForm<LoginFormDataType, { captchaUrl: string | null }>({
   form: "login",
 })(LoginForm);
 
-const Login = ({ loginTC, isAuth }: LoginPropsType) => {
+const Login = (props: LoginPropsType) => {
   const onSubmit = (formData: LoginFormDataType) => {
-    const { email, password, rememberMe } = formData;
-    loginTC(email, password, rememberMe);
+    const { email, password, rememberMe, captcha } = formData;
+    props.loginTC(email, password, rememberMe, captcha);
   };
 
-  if (isAuth) return <Redirect to={"/profile"} />;
+  if (props.isAuth) return <Redirect to={"/profile"} />;
 
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
     </div>
   );
 };
 
 const mapStateToProps = (state: AppRootStateType) => {
   return {
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
   };
 };
@@ -61,8 +68,10 @@ type LoginFormDataType = {
   email: string;
   password: string;
   rememberMe: boolean;
+  captcha: string;
 };
 type LoginPropsType = {
-  loginTC: (email: string, password: string, rememberMe: boolean) => void;
+  loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
   isAuth: boolean;
+  captchaUrl: string | null;
 };
