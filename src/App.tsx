@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { HashRouter, Route, withRouter } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import NavBar from "./components/Navbar/Navbar";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
@@ -28,10 +28,15 @@ class App extends React.Component<AppPropsType> {
         <HeaderContainer />
         <NavBar />
         <div className={"app-wrapper-content"}>
-          <Route path={"/profile/:userId?"} render={withSuspense(ProfileContainer)} />
-          <Route path={"/dialogs"} render={withSuspense(DialogsContainer)} />
-          <Route path={"/users"} render={withSuspense(UsersContainer)} />
-          <Route path={"/login"} render={() => <Login />} />
+          <Switch>
+            <Route exact path={"/"} render={() => <Redirect to={"/profile"} />} />
+            <Route exact path={"/samurai-way"} render={() => <Redirect to={"/profile"} />} />
+            <Route path={"/profile/:userId?"} render={withSuspense(ProfileContainer)} />
+            <Route path={"/dialogs"} render={withSuspense(DialogsContainer)} />
+            <Route path={"/users"} render={withSuspense(UsersContainer)} />
+            <Route path={"/login"} render={() => <Login />} />
+            <Route path={"*"} render={() => <div>404 PAGE NOT FOUND</div>} />
+          </Switch>
         </div>
       </div>
     );
@@ -48,11 +53,11 @@ const AppContainer = compose<React.ComponentType>(connect(mapStateToProps, { ini
 
 export const SamuraiApp = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Provider store={store}>
         <AppContainer />
       </Provider>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
