@@ -114,10 +114,6 @@ export const saveProfileSuccess = (profile: any) => {
 // thunks
 
 export const getProfileTC = (userId: string) => async (dispatch: AppDispatch) => {
-  // const getUsersResponse = await usersAPI.getUsers();
-  // if (getUsersResponse.data.items[0].id < +userId) {
-  //   userId = "30560";
-  // }
   const getProfileResponse = await profileAPI.getProfile(userId);
   dispatch(setUserProfile(getProfileResponse.data));
 };
@@ -126,9 +122,13 @@ export const getStatusTC = (userId: string) => async (dispatch: AppDispatch) => 
   dispatch(setStatus(response.data));
 };
 export const updateStatusTC = (status: string) => async (dispatch: AppDispatch) => {
-  const response = await profileAPI.updateStatus(status);
-  if (response.data.resultCode === 0) {
-    dispatch(setStatus(status));
+  try {
+    const response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status));
+    }
+  } catch (e) {
+    console.log(e);
   }
 };
 export const savePhotoTC = (photo: File) => async (dispatch: AppDispatch) => {
