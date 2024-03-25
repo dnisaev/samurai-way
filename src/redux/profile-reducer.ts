@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { profileAPI, usersAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 import { AppDispatch } from "./redux-store";
 import { stopSubmit } from "redux-form";
 
@@ -114,10 +114,10 @@ export const saveProfileSuccess = (profile: any) => {
 // thunks
 
 export const getProfileTC = (userId: string) => async (dispatch: AppDispatch) => {
-  const getUsersResponse = await usersAPI.getUsers();
-  if (getUsersResponse.data.items[0].id < +userId) {
-    userId = "30560";
-  }
+  // const getUsersResponse = await usersAPI.getUsers();
+  // if (getUsersResponse.data.items[0].id < +userId) {
+  //   userId = "30560";
+  // }
   const getProfileResponse = await profileAPI.getProfile(userId);
   dispatch(setUserProfile(getProfileResponse.data));
 };

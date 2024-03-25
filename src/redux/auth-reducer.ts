@@ -7,7 +7,7 @@ let initialState = {
   email: null,
   login: null,
   isAuth: false,
-  captchaUrl: null,
+  captcha: null,
 };
 
 export const authReducer = (state: AuthResponseType = initialState, action: AuthActionsType) => {
@@ -34,11 +34,11 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
   } as const;
 };
 
-export const getCaptchaUrlSuccess = (captchaUrl: string) => {
+export const getCaptchaUrlSuccess = (captcha: string) => {
   return {
     type: "GET-CAPTCHA-URL-SUCCESS",
     payload: {
-      captchaUrl,
+      captcha,
     },
   } as const;
 };
@@ -79,8 +79,8 @@ export const logoutTC = () => async (dispatch: AppDispatch) => {
 
 export const getCaptchaUrlTC = () => async (dispatch: AppDispatch) => {
   const response = await securityAPI.getCaptcha();
-  const captchaUrl = response.data.url;
-  dispatch(getCaptchaUrlSuccess(captchaUrl));
+  const captcha = response.data.url;
+  dispatch(getCaptchaUrlSuccess(captcha));
 };
 
 // types
@@ -91,5 +91,5 @@ type AuthResponseType = {
   email: string | null;
   login: string | null;
   isAuth: boolean;
-  captchaUrl: string | null;
+  captcha: string | null;
 };

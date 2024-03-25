@@ -9,10 +9,10 @@ import { Redirect } from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css";
 
 const LoginForm: React.FC<
-  InjectedFormProps<LoginFormDataType, { captchaUrl: string | null }> & {
-    captchaUrl: string | null;
+  InjectedFormProps<LoginFormDataType, { captcha: string | null }> & {
+    captcha: string | null;
   }
-> = ({ handleSubmit, error, captchaUrl }) => {
+> = ({ handleSubmit, error, captcha }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -25,8 +25,8 @@ const LoginForm: React.FC<
         <Field component={Input} name={"rememberMe"} type={"checkbox"} />
         Запомнить меня
       </div>
-      {captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}
-      {captchaUrl && createField("Введите символы с картинки", "captcha", [required], Input, {})}
+      {captcha && <img src={captcha} alt={'captcha'}/>}
+      {captcha && createField("Введите символы с картинки", "captcha", [required], Input, {})}
       {error && <div className={styles.formSummeryError}>{error}</div>}
       <div>
         <button>Войти</button>
@@ -35,7 +35,7 @@ const LoginForm: React.FC<
   );
 };
 
-const LoginReduxForm = reduxForm<LoginFormDataType, { captchaUrl: string | null }>({
+const LoginReduxForm = reduxForm<LoginFormDataType, { captcha: string | null }>({
   form: "login",
 })(LoginForm);
 
@@ -50,14 +50,14 @@ const Login = (props: LoginPropsType) => {
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit} captcha={props.captcha} />
     </div>
   );
 };
 
 const mapStateToProps = (state: AppRootStateType) => {
   return {
-    captchaUrl: state.auth.captchaUrl,
+    captcha: state.auth.captcha,
     isAuth: state.auth.isAuth,
   };
 };
@@ -73,5 +73,5 @@ type LoginFormDataType = {
 type LoginPropsType = {
   loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
   isAuth: boolean;
-  captchaUrl: string | null;
+  captcha: string | null;
 };
