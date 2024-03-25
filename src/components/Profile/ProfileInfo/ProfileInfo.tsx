@@ -42,6 +42,13 @@ const ProfileInfo = ({ isOwner, profile, status, updateStatusTC, savePhotoTC, sa
 
   if (!profile) return <Preloader />;
 
+  const initialValues = {
+    aboutMe: profile.aboutMe,
+    fullName: profile.fullName,
+    lookingForAJob: profile.lookingForAJob,
+    lookingForAJobDescription: profile.lookingForAJobDescription
+  }
+
   return (
     <div className={styles.content}>
       <div className={styles.wrapper}>
@@ -51,7 +58,7 @@ const ProfileInfo = ({ isOwner, profile, status, updateStatusTC, savePhotoTC, sa
         </div>
         <div className={styles.descriptionBlock}>
           {editMode ? (
-            <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
+            <ProfileDataReduxForm initialValues={initialValues} profile={profile} onSubmit={onSubmit} />
           ) : (
             <ProfileData profile={profile} isOwner={isOwner} activateEditMode={activateEditMode} />
           )}
